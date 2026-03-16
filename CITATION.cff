@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or methodology, please cite it as below."
+type: software
+title: "GAIA-Template: Spec-Driven Development for React and REST APIs"
+authors:
+  - family-names: "Cachero"
+    given-names: "Cristina"
+repository-code: "https://github.com/ccacheroc/GAIA-Template"
+url: "https://github.com/ccacheroc/GAIA-Template"
+license: "Apache-2.0"
+keywords:
+  - "spec-driven development"
+  - "SDD"
+  - "react"
+  - "rest api"
+  - "software architecture"
+  - "generative ai"

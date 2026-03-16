@@ -1,0 +1,40 @@
+{
+    "meta": {
+        "brand_name": "Generic Brand Template",
+        "description": "Core design tokens aligned with the project's visual identity."
+    },
+    "colors": {
+        "primary": {
+            "DEFAULT": "#B05E28",
+            "hover": "#9A4D21",
+            "foreground": "#FDFBF9"
+        },
+        "secondary": {
+            "DEFAULT": "#F1EEE8",
+            "foreground": "#322C46"
+        },
+        "background": "#FDFBF9",
+        "foreground": "#322C46",
+        "muted": "#F1EEE8",
+        "accent": "#E7F1D8",
+        "destructive": "#EF4444",
+        "success": "#4F7A28"
+    },
+    "typography": {
+        "font_family_headings": [
+            "Inter",
+            "sans-serif"
+        ],
+        "font_family_body": [
+            "Roboto",
+            "sans-serif"
+        ],
+        "font_weight_bold": "700",
+        "font_weight_normal": "400"
+    },
+    "ui": {
+        "border_radius_default": "0.5rem",
+        "border_radius_small": "0.25rem",
+        "spacing_base_unit": "4px"
+    }
+}
