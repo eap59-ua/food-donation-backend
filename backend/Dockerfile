@@ -17,7 +17,7 @@ COPY pyproject.toml poetry.lock* ./
 # Check if pyproject.toml exists to avoid error if context is wrong, though copy handles it.
 # Install dependencies
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+    && poetry install --no-interaction --no-ansi --no-root
 
 # Copy application
 COPY . .
