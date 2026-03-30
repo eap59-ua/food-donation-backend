@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
-import { AlertCircle, Loader2, ArrowRight } from 'lucide-react';
+import { AlertCircle, Loader2, ArrowRight, Leaf, Lock, Mail } from 'lucide-react';
 
 import { authApi } from '../api/auth';
 import { useAuth } from '../hooks/useAuth';
@@ -28,7 +28,7 @@ export const LoginPage = () => {
     mutationFn: authApi.login,
     onSuccess: (data) => {
       login(data.access_token);
-      navigate('/');
+      navigate('/dashboard');
     }
   });
 
@@ -37,12 +37,21 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center bg-muted/20 px-4">
-      <div className="w-full max-w-md bg-background rounded-2xl shadow-sm border border-border overflow-hidden">
-        <div className="p-8">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">Acceder</h1>
-          <p className="text-muted-foreground mb-8">Inicia sesión para gestionar tus donaciones</p>
-          
+    <div className="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 via-background to-secondary/5 px-4">
+      <div className="w-full max-w-md">
+        {/* Encabezado */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="p-3 bg-primary/10 rounded-full">
+              <Leaf className="h-8 w-8 text-primary" />
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-foreground mb-2">Bienvenido</h1>
+          <p className="text-muted-foreground text-lg">Continúa con tu cuenta de RedDonación</p>
+        </div>
+
+        {/* Card de login */}
+        <div className="bg-background rounded-2xl shadow-lg border border-border p-8">
           {mutation.isError && (
             <div className="mb-6 bg-destructive/10 text-destructive text-sm font-medium p-4 rounded-lg flex items-start gap-3">
               <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -52,12 +61,15 @@ export const LoginPage = () => {
 
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Correo electrónico</label>
+              <label className="text-sm font-semibold text-foreground flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                Correo Electrónico
+              </label>
               <input
                 {...form.register('email')}
                 type="email"
-                placeholder="tu@organizacion.org"
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-muted-foreground"
+                placeholder="tu@correo.org"
+                className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-muted-foreground"
               />
               {form.formState.errors.email && (
                 <p className="text-xs font-medium text-destructive flex items-center gap-1 mt-1">
@@ -68,12 +80,15 @@ export const LoginPage = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Contraseña</label>
+              <label className="text-sm font-semibold text-foreground flex items-center gap-2">
+                <Lock className="h-4 w-4" />
+                Contraseña
+              </label>
               <input
                 {...form.register('password')}
                 type="password"
                 placeholder="••••••••"
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-muted-foreground"
+                className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-muted-foreground"
               />
               {form.formState.errors.password && (
                 <p className="text-xs font-medium text-destructive flex items-center gap-1 mt-1">
@@ -86,7 +101,7 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+              className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-6"
             >
               {mutation.isPending ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -98,11 +113,25 @@ export const LoginPage = () => {
               )}
             </button>
           </form>
+
+          <div className="mt-6 pt-6 border-t border-border">
+            <p className="text-sm text-muted-foreground">
+              ¿No tienes cuenta?{' '}
+              <Link to="/register" className="font-semibold text-primary hover:underline">
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
         </div>
-        
-        <div className="p-6 bg-muted/40 border-t border-border flex justify-between items-center text-sm">
-          <span className="text-muted-foreground">¿No tienes cuenta?</span>
-          <Link to="/register" className="font-semibold text-primary hover:underline">Únete ahora</Link>
+
+        {/* Info adicional */}
+        <div className="mt-8 text-center">
+          <p className="text-xs text-muted-foreground">
+            Al acceder, aceptas nuestros{' '}
+            <a href="#" className="text-primary hover:underline">Términos de Servicio</a>{' '}
+            y{' '}
+            <a href="#" className="text-primary hover:underline">Política de Privacidad</a>
+          </p>
         </div>
       </div>
     </div>
