@@ -28,7 +28,7 @@ export const LoginPage = () => {
     mutationFn: authApi.login,
     onSuccess: (data) => {
       login(data.access_token);
-      navigate('/');
+      navigate('/dashboard');
     }
   });
 
@@ -42,7 +42,7 @@ export const LoginPage = () => {
         <div className="p-8">
           <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">Acceder</h1>
           <p className="text-muted-foreground mb-8">Inicia sesión para gestionar tus donaciones</p>
-          
+
           {mutation.isError && (
             <div className="mb-6 bg-destructive/10 text-destructive text-sm font-medium p-4 rounded-lg flex items-start gap-3">
               <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -99,7 +99,7 @@ export const LoginPage = () => {
             </button>
           </form>
         </div>
-        
+
         <div className="p-6 bg-muted/40 border-t border-border flex justify-between items-center text-sm">
           <span className="text-muted-foreground">¿No tienes cuenta?</span>
           <Link to="/register" className="font-semibold text-primary hover:underline">Únete ahora</Link>
