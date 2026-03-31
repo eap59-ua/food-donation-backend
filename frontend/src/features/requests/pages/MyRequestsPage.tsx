@@ -6,9 +6,9 @@ import { Loader2, ClipboardList, CheckCircle, XCircle, Clock, MessageSquare, Pac
 import { useEffect, useState } from 'react';
 
 const statusLabels: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-    PENDING: { label: 'Pendiente', color: 'bg-yellow-100 text-yellow-800', icon: <Clock className="h-3.5 w-3.5" /> },
-    APPROVED: { label: 'Aprobada', color: 'bg-green-100 text-green-800', icon: <CheckCircle className="h-3.5 w-3.5" /> },
-    REJECTED: { label: 'Rechazada', color: 'bg-red-100 text-red-800', icon: <XCircle className="h-3.5 w-3.5" /> },
+    PENDING: { label: 'Pendiente', color: 'bg-blue-100 text-blue-800', icon: <Clock className="h-3.5 w-3.5" /> },
+    APPROVED: { label: 'Aprobada', color: 'bg-violet-100 text-violet-800', icon: <CheckCircle className="h-3.5 w-3.5" /> },
+    REJECTED: { label: 'Rechazada', color: 'bg-purple-100 text-purple-800', icon: <XCircle className="h-3.5 w-3.5" /> },
 };
 
 export const MyRequestsPage = () => {
@@ -75,7 +75,7 @@ export const MyRequestsPage = () => {
                 ) : (
                     <div className="space-y-4">
                         {requests.map((req) => {
-                            const statusInfo = statusLabels[req.status] ?? { label: req.status, color: 'bg-gray-100 text-gray-800', icon: null };
+                            const statusInfo = statusLabels[req.status] ?? { label: req.status, color: 'bg-slate-100 text-slate-800', icon: null };
                             const donation = donationMap[req.donation_id];
 
                             return (
@@ -124,7 +124,7 @@ export const MyRequestsPage = () => {
                                                     <button
                                                         onClick={() => statusMutation.mutate({ requestId: req.id, status: 'APPROVED' })}
                                                         disabled={statusMutation.isPending}
-                                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-50"
+                                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-violet-600 text-white hover:bg-violet-700 transition-colors disabled:opacity-50"
                                                     >
                                                         <CheckCircle className="h-3.5 w-3.5" />
                                                         Aprobar
@@ -132,7 +132,7 @@ export const MyRequestsPage = () => {
                                                     <button
                                                         onClick={() => statusMutation.mutate({ requestId: req.id, status: 'REJECTED' })}
                                                         disabled={statusMutation.isPending}
-                                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+                                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
                                                     >
                                                         <XCircle className="h-3.5 w-3.5" />
                                                         Rechazar

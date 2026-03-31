@@ -6,10 +6,10 @@ import { MapPin, Clock, PlusCircle, Loader2, Package, Search } from 'lucide-reac
 import { useState } from 'react';
 
 const statusLabels: Record<string, { label: string; color: string }> = {
-    AVAILABLE: { label: 'Disponible', color: 'bg-green-100 text-green-800' },
-    RESERVED: { label: 'Reservada', color: 'bg-yellow-100 text-yellow-800' },
-    COMPLETED: { label: 'Completada', color: 'bg-blue-100 text-blue-800' },
-    EXPIRED: { label: 'Expirada', color: 'bg-red-100 text-red-800' },
+    AVAILABLE: { label: 'Disponible', color: 'bg-blue-100 text-blue-800' },
+    RESERVED: { label: 'Reservada', color: 'bg-indigo-100 text-indigo-800' },
+    COMPLETED: { label: 'Completada', color: 'bg-violet-100 text-violet-800' },
+    EXPIRED: { label: 'Expirada', color: 'bg-purple-100 text-purple-800' },
 };
 
 export const DonationsPage = () => {
@@ -96,7 +96,7 @@ export const DonationsPage = () => {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {donations.map((donation) => {
-                            const statusInfo = statusLabels[donation.status] ?? { label: donation.status, color: 'bg-gray-100 text-gray-800' };
+                            const statusInfo = statusLabels[donation.status] ?? { label: donation.status, color: 'bg-slate-100 text-slate-800' };
                             return (
                                 <Link
                                     key={donation.id}
