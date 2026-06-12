@@ -37,3 +37,11 @@ htmlcov/
 
 # Node (for GAIA tools)
 node_modules/
+
+# Datos y archivos generados / resultados
+datos.pdf
+datos.txt
+datos_extraidos.txt
+datos_completos.csv
+metrics_summary.csv
+grafica_comparativa.png
