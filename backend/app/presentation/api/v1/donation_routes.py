@@ -58,12 +58,29 @@ async def update_donation(
     db: AsyncSession = Depends(get_db),
     current_user: UserModel = Depends(get_current_user),
 ):
+    is_admin = current_user.role == UserRoleDB.ADMIN
     try:
-        return await DonationService(db).update(donation_id, current_user.id, dto)
+        return await DonationService(db).update(donation_id, current_user.id, is_admin, dto)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except PermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
+
+
+@router.delete("/{donation_id}", status_code=204)
+async def delete_donation(
+    donation_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user),
+):
+    """Delete a donation. Only the donor or an admin can delete."""
+    try:
+        await DonationService(db).delete(donation_id, current_user.id, current_user.role == UserRoleDB.ADMIN)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+    return None
 
 
 @router.patch("/{donation_id}/status", response_model=DonationResponseDTO)

@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.application.auth_service import AuthService
-from app.application.dtos import RegisterUserDTO, TokenDTO, UserResponseDTO, LoginDTO
+from app.application.dtos import RegisterUserDTO, TokenDTO, UserResponseDTO, LoginDTO, UserRoleDTO
 from app.infrastructure.database import get_db
 from app.presentation.dependencies import get_current_user
 from app.infrastructure.models import UserModel
@@ -16,6 +16,8 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @router.post("/register", response_model=UserResponseDTO, status_code=201)
 async def register(dto: RegisterUserDTO, db: AsyncSession = Depends(get_db)):
+    if dto.role == UserRoleDTO.ADMIN:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Cannot self-register as ADMIN")
     try:
         return await AuthService(db).register(dto)
     except ValueError as e:

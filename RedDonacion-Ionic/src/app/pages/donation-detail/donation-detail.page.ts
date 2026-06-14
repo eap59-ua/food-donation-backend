@@ -141,7 +141,8 @@ export class DonationDetailPage implements OnInit {
             this.donationsService.delete(this.donation!.id).subscribe({
               next: () => {
                 this.showToast('Donación eliminada', 'success');
-                this.router.navigate(['/donations-list'], { replaceUrl: true });
+                const returnUrl = (history.state && (history.state as any).returnUrl) || '/donations-list';
+                this.router.navigateByUrl(returnUrl, { replaceUrl: true });
               },
               error: () => this.showToast('Error al eliminar', 'danger'),
             });

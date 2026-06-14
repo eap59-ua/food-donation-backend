@@ -28,7 +28,9 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.currentUser = this.authService.currentUser;
+    this.authService.currentUser$.subscribe((user) => {
+      this.currentUser = user;
+    });
     this.loadData();
   }
 
@@ -97,5 +99,9 @@ export class DashboardPage implements OnInit {
 
   canDonate(): boolean {
     return this.currentUser?.role === 'DONANTE';
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser?.role === 'ADMIN';
   }
 }

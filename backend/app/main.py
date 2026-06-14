@@ -1,19 +1,33 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.ext.asyncio import AsyncSession
 
+# // [Feature: User Management] [Story: admin-initialization] [Ticket: UM-ADMIN-001-BE]
+from app.config import settings
 from app.infrastructure.database import engine, Base
+from app.infrastructure.seed import seed_admin_user
 from app.infrastructure import models  # noqa: F401 — ensures models are registered
 from app.presentation.api.v1.auth_routes import router as auth_router
 from app.presentation.api.v1.donation_routes import router as donation_router
 from app.presentation.api.v1.request_routes import router as request_router
+from app.presentation.api.v1.user_routes import router as user_router
 
 
+# // [Feature: User Management] [Story: admin-initialization] [Ticket: UM-ADMIN-001-BE]
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Create DB tables on startup (for development). Use Alembic in production."""
+    """Create DB tables on startup and seed the default admin in development."""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+    async with AsyncSession(engine) as session:
+        await seed_admin_user(
+            session,
+            settings.ADMIN_EMAIL,
+            settings.ADMIN_PASSWORD,
+        )
+
     yield
 
 
@@ -39,6 +53,7 @@ API_PREFIX = "/api/v1"
 app.include_router(auth_router, prefix=API_PREFIX)
 app.include_router(donation_router, prefix=API_PREFIX)
 app.include_router(request_router, prefix=API_PREFIX)
+app.include_router(user_router, prefix=API_PREFIX)
 
 
 @app.get("/", tags=["Root"])
@@ -51,6 +66,7 @@ async def root():
     }
 
 
+# // [Feature: User Management] [Story: admin-initialization] [Ticket: UM-ADMIN-001-BE]
 @app.get("/health", tags=["Health"])
 async def health_check():
-    return {"status": "ok", "app": "food-donation-backend"}
+    return {"status": "ok"}

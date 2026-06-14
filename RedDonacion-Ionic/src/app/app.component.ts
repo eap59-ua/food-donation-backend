@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser$.subscribe((user) => {
       this.currentUser = user;
+      if (this.isAuthenticated) {
+        this.buildMenu(true);
+      }
     });
     this.authService.isAuthenticated$.subscribe((auth) => {
       this.isAuthenticated = auth;
@@ -38,8 +41,11 @@ export class AppComponent implements OnInit {
     ];
 
     const role = this.currentUser?.role ?? this.authService.currentUser?.role;
-    if (role === 'DONANTE' || role === 'ONG') {
+    if (role === 'DONANTE') {
       this.appPages.push({ title: 'Nueva Donación', url: '/create-donation', icon: 'add-circle' });
+    }
+    if (role === 'ADMIN') {
+      this.appPages.push({ title: 'Admin', url: '/admin', icon: 'settings' });
     }
   }
 

@@ -1,0 +1,8 @@
+.admin-content {
+  padding: 16px;
+}
+.admin-section { margin-bottom: 28px; }
+.section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
+.table-wrap table { width:100%; border-collapse:collapse }
+.table-wrap th, .table-wrap td { padding:8px 12px; border-bottom:1px solid var(--ion-color-light); text-align:left }
+.table-wrap tr:hover { background: rgba(0,0,0,0.03) }

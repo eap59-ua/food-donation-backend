@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Panel de administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="admin-content">
+  <div class="admin-section">
+    <div class="section-header">
+      <h2>Usuarios</h2>
+      <ion-button color="primary" (click)="createUser()">Crear usuario</ion-button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users">
+            <td>{{ u.name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.role }}</td>
+            <td>{{ u.is_active ? 'Sí' : 'No' }}</td>
+            <td>
+              <ion-button size="small" fill="clear" (click)="viewUser(u)">Ver</ion-button>
+              <ion-button size="small" fill="clear" (click)="editUser(u)">Editar</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <div class="section-header">
+      <h2>Donaciones</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Donante</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of donations">
+            <td>{{ d.title }}</td>
+            <td>{{ d.donor_name }}</td>
+            <td>{{ d.quantity }}</td>
+            <td>{{ d.status }}</td>
+            <td>
+              <ion-button size="small" fill="clear" (click)="viewDonation(d)">Ver</ion-button>
+              <ion-button size="small" fill="clear" color="danger" (click)="deleteDonation(d)">Borrar</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <div class="section-header">
+      <h2>Solicitudes</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Donación</th>
+            <th>Solicitante</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of requests">
+            <td>{{ r.donation_title }}</td>
+            <td>{{ r.requester_name }}</td>
+            <td>{{ r.requested_quantity }}</td>
+            <td>{{ r.status }}</td>
+            <td>
+              <ion-button size="small" fill="clear" (click)="viewRequest(r)">Ver</ion-button>
+              <ion-button size="small" fill="clear" (click)="updateRequestStatus(r)">Editar</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

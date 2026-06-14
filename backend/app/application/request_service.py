@@ -7,6 +7,7 @@ from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, or_
+from sqlalchemy.orm import selectinload
 
 from app.application.dtos import (
     CreateRequestDTO,
@@ -47,29 +48,49 @@ class RequestService:
         return RequestResponseDTO.model_validate(request)
 
     async def get_my_requests(
-        self, user_id: uuid.UUID, is_donor: bool
+        self, user_id: uuid.UUID, is_donor: bool, is_admin: bool = False
     ) -> List[RequestResponseDTO]:
         """
         For donors: return requests made ON their donations.
         For receptors/ONGs: return requests made BY them.
+        For admins: return all requests.
         """
-        if is_donor:
-            # join requests → donations to filter by donor_id
+        if is_admin:
+            query = (
+                select(RequestModel)
+                .options(selectinload(RequestModel.donation), selectinload(RequestModel.requester))
+            )
+        elif is_donor:
             query = (
                 select(RequestModel)
                 .join(DonationModel, RequestModel.donation_id == DonationModel.id)
                 .where(DonationModel.donor_id == user_id)
+                .options(selectinload(RequestModel.donation), selectinload(RequestModel.requester))
             )
         else:
-            query = select(RequestModel).where(RequestModel.requester_id == user_id)
+            query = (
+                select(RequestModel)
+                .where(RequestModel.requester_id == user_id)
+                .options(selectinload(RequestModel.donation), selectinload(RequestModel.requester))
+            )
 
         query = query.order_by(RequestModel.created_at.desc())
         result = await self.db.execute(query)
         requests = result.scalars().all()
         return [RequestResponseDTO.model_validate(r) for r in requests]
 
+    async def list_all(self) -> List[RequestResponseDTO]:
+        query = (
+            select(RequestModel)
+            .options(selectinload(RequestModel.donation), selectinload(RequestModel.requester))
+            .order_by(RequestModel.created_at.desc())
+        )
+        result = await self.db.execute(query)
+        requests = result.scalars().all()
+        return [RequestResponseDTO.model_validate(r) for r in requests]
+
     async def update_status(
-        self, request_id: uuid.UUID, donor_id: uuid.UUID, dto: UpdateRequestStatusDTO
+        self, request_id: uuid.UUID, donor_id: uuid.UUID, is_admin: bool, dto: UpdateRequestStatusDTO
     ) -> RequestResponseDTO:
         r_result = await self.db.execute(
             select(RequestModel).where(RequestModel.id == request_id)
@@ -83,8 +104,8 @@ class RequestService:
             select(DonationModel).where(DonationModel.id == request.donation_id)
         )
         donation = d_result.scalar_one_or_none()
-        if not donation or donation.donor_id != donor_id:
-            raise PermissionError("Only the donor can update the request status")
+        if not donation or (donation.donor_id != donor_id and not is_admin):
+            raise PermissionError("Only the donor or an admin can update the request status")
 
         request.status = dto.status.value
         request.updated_at = datetime.utcnow()

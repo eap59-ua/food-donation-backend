@@ -60,6 +60,7 @@ const routes: Routes = [
         (m) => m.CreateDonationPageModule
       ),
     canActivate: [AuthGuard],
+    data: { roles: ['DONANTE'] },
   },
   {
     path: 'my-requests',
@@ -68,6 +69,12 @@ const routes: Routes = [
         (m) => m.MyRequestsPageModule
       ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: '**',

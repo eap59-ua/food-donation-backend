@@ -39,7 +39,7 @@
     >
       <div class="request-header">
         <p class="request-donation-title">
-          Donación #{{ req.donation_id.substring(0, 8) }}
+          Donación: {{ req.donation_title }}
         </p>
         <span class="rd-badge {{ getStatusClass(req.status) }}">
           {{ getStatusLabel(req.status) }}

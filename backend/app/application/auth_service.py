@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.config import settings
-from app.application.dtos import RegisterUserDTO, TokenDTO, UserResponseDTO
+from app.application.dtos import RegisterUserDTO, TokenDTO, UserResponseDTO, UpdateUserDTO
 from app.infrastructure.models import UserModel
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -74,4 +74,33 @@ class AuthService:
         user = result.scalar_one_or_none()
         if not user:
             return None
+        return UserResponseDTO.model_validate(user)
+
+    async def list_users(self) -> list[UserResponseDTO]:
+        result = await self.db.execute(select(UserModel))
+        users = result.scalars().all()
+        return [UserResponseDTO.model_validate(user) for user in users]
+
+    async def update_user(self, user_id: uuid.UUID, dto: UpdateUserDTO) -> UserResponseDTO:
+        result = await self.db.execute(select(UserModel).where(UserModel.id == user_id))
+        user = result.scalar_one_or_none()
+        if not user:
+            raise ValueError("User not found")
+
+        if dto.name is not None:
+            user.name = dto.name
+        if dto.email is not None:
+            existing = await self.db.execute(
+                select(UserModel).where(UserModel.email == dto.email, UserModel.id != user_id)
+            )
+            if existing.scalar_one_or_none():
+                raise ValueError("Email already registered")
+            user.email = dto.email
+        if dto.role is not None:
+            user.role = dto.role.value
+        if dto.is_active is not None:
+            user.is_active = dto.is_active
+
+        await self.db.commit()
+        await self.db.refresh(user)
         return UserResponseDTO.model_validate(user)

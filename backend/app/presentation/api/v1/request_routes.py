@@ -21,11 +21,21 @@ async def create_request(
     current_user: UserModel = Depends(get_current_user),
 ):
     if current_user.role not in (UserRoleDB.RECEPTOR, UserRoleDB.ONG, UserRoleDB.ADMIN):
-        raise HTTPException(status_code=403, detail="Only receptors or ONGs can request donations")
+        raise HTTPException(status_code=403, detail="Only RECEPTOR, ONG or ADMIN accounts can request donations")
     try:
         return await RequestService(db).create(current_user.id, dto)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.get("", response_model=list[RequestResponseDTO])
+async def list_requests(
+    db: AsyncSession = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user),
+):
+    if current_user.role != UserRoleDB.ADMIN:
+        raise HTTPException(status_code=403, detail="Only admins can list all requests")
+    return await RequestService(db).list_all()
 
 
 @router.get("/me", response_model=list[RequestResponseDTO])
@@ -49,9 +59,10 @@ async def update_request_status(
     current_user: UserModel = Depends(get_current_user),
 ):
     if current_user.role not in (UserRoleDB.DONANTE, UserRoleDB.ADMIN):
-        raise HTTPException(status_code=403, detail="Only the donor can update a request status")
+        raise HTTPException(status_code=403, detail="Only the donor or an admin can update a request status")
+    is_admin = current_user.role == UserRoleDB.ADMIN
     try:
-        return await RequestService(db).update_status(request_id, current_user.id, dto)
+        return await RequestService(db).update_status(request_id, current_user.id, is_admin, dto)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except PermissionError as e:

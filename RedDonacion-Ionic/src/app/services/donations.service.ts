@@ -14,6 +14,7 @@ export interface DonationDTO {
   expiration_date: string | null;
   status: DonationStatus;
   donor_id: string;
+  donor_name: string;
   created_at: string;
   updated_at?: string;
 }

@@ -67,8 +67,8 @@
             <ion-icon name="person-outline"></ion-icon>
           </div>
           <div class="detail-row-content">
-            <span class="detail-row-label">ID Donante</span>
-            <span class="detail-row-value">{{ donation.donor_id.substring(0,8) }}</span>
+            <span class="detail-row-label">Donante</span>
+            <span class="detail-row-value">{{ donation.donor_name }}</span>
           </div>
         </div>
         <div class="detail-row">
@@ -122,7 +122,7 @@
             <ion-icon name="person-outline"></ion-icon>
           </div>
           <div class="request-info">
-            <p class="request-name">ID: {{ req.requester_id.substring(0,8) }}</p>
+            <p class="request-name">Solicitante: {{ req.requester_name }}</p>
             <span class="rd-badge {{ req.status.toLowerCase() }}">
               {{ getStatusLabel(req.status) }}
             </span>

@@ -54,13 +54,20 @@ class TokenDTO(BaseModel):
 class UserResponseDTO(BaseModel):
     id: UUID
     name: str
-    email: EmailStr
+    email: str
     role: UserRoleDTO
     is_active: bool
     created_at: datetime
 
     class Config:
         from_attributes = True
+
+
+class UpdateUserDTO(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    role: Optional[UserRoleDTO] = None
+    is_active: Optional[bool] = None
 
 
 # ── Donations ─────────────────────────────────────────────────────────────────
@@ -88,6 +95,7 @@ class UpdateDonationStatusDTO(BaseModel):
 class DonationResponseDTO(BaseModel):
     id: UUID
     donor_id: UUID
+    donor_name: str
     title: str
     description: Optional[str]
     quantity: str
@@ -116,7 +124,9 @@ class UpdateRequestStatusDTO(BaseModel):
 class RequestResponseDTO(BaseModel):
     id: UUID
     donation_id: UUID
+    donation_title: str
     requester_id: UUID
+    requester_name: str
     message: Optional[str]
     requested_quantity: Optional[str]
     status: RequestStatusDTO

@@ -58,6 +58,10 @@ class DonationModel(Base):
     donor: Mapped["UserModel"] = relationship("UserModel", back_populates="donations", foreign_keys=[donor_id])
     requests: Mapped[list["RequestModel"]] = relationship("RequestModel", back_populates="donation")
 
+    @property
+    def donor_name(self) -> str:
+        return self.donor.name if self.donor else ""
+
 
 class RequestModel(Base):
     __tablename__ = "requests"
@@ -73,3 +77,11 @@ class RequestModel(Base):
 
     donation: Mapped["DonationModel"] = relationship("DonationModel", back_populates="requests")
     requester: Mapped["UserModel"] = relationship("UserModel", back_populates="requests")
+
+    @property
+    def donation_title(self) -> str:
+        return self.donation.title if self.donation else ""
+
+    @property
+    def requester_name(self) -> str:
+        return self.requester.name if self.requester else ""

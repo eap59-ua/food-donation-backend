@@ -10,6 +10,8 @@ services:
       - SECRET_KEY=change-me-in-production
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - ADMIN_EMAIL=admin@gmail.com
+      - ADMIN_PASSWORD=AdminPassword123!
     depends_on:
       db:
         condition: service_healthy

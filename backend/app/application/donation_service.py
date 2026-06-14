@@ -7,6 +7,7 @@ from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 from app.application.dtos import (
     CreateDonationDTO,
@@ -43,7 +44,7 @@ class DonationService:
         status: Optional[DonationStatusDTO] = None,
         location_query: Optional[str] = None,
     ) -> List[DonationResponseDTO]:
-        query = select(DonationModel)
+        query = select(DonationModel).options(selectinload(DonationModel.donor))
         if status:
             query = query.where(DonationModel.status == status.value)
         if location_query:
@@ -54,20 +55,22 @@ class DonationService:
         return [DonationResponseDTO.model_validate(d) for d in donations]
 
     async def get_by_id(self, donation_id: uuid.UUID) -> Optional[DonationResponseDTO]:
-        result = await self.db.execute(select(DonationModel).where(DonationModel.id == donation_id))
+        result = await self.db.execute(
+            select(DonationModel).options(selectinload(DonationModel.donor)).where(DonationModel.id == donation_id)
+        )
         donation = result.scalar_one_or_none()
         if not donation:
             return None
         return DonationResponseDTO.model_validate(donation)
 
     async def update(
-        self, donation_id: uuid.UUID, donor_id: uuid.UUID, dto: UpdateDonationDTO
+        self, donation_id: uuid.UUID, donor_id: uuid.UUID, is_admin: bool, dto: UpdateDonationDTO
     ) -> DonationResponseDTO:
         result = await self.db.execute(select(DonationModel).where(DonationModel.id == donation_id))
         donation = result.scalar_one_or_none()
         if not donation:
             raise ValueError("Donation not found")
-        if donation.donor_id != donor_id:
+        if donation.donor_id != donor_id and not is_admin:
             raise PermissionError("You are not the owner of this donation")
 
         if dto.title is not None:
@@ -100,3 +103,13 @@ class DonationService:
         await self.db.commit()
         await self.db.refresh(donation)
         return DonationResponseDTO.model_validate(donation)
+
+    async def delete(self, donation_id: uuid.UUID, actor_id: uuid.UUID, is_admin: bool) -> None:
+        result = await self.db.execute(select(DonationModel).where(DonationModel.id == donation_id))
+        donation = result.scalar_one_or_none()
+        if not donation:
+            raise ValueError("Donation not found")
+        if donation.donor_id != actor_id and not is_admin:
+            raise PermissionError("You are not the owner of this donation")
+        await self.db.delete(donation)
+        await self.db.commit()

@@ -8,7 +8,9 @@ export type RequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 export interface DonationRequestDTO {
   id: string;
   donation_id: string;
+  donation_title: string;
   requester_id: string;
+  requester_name: string;
   message?: string;
   requested_quantity?: string;
   status: RequestStatus;
@@ -16,7 +18,7 @@ export interface DonationRequestDTO {
   updated_at?: string;
   // Extras que no vienen del backend nativo, pero quizás el frontend inyecta o no existen.
   // Vamos a dejar los campos extras por si los mapeamos, pero el backend devuelve:
-  // id, donation_id, requester_id, message, requested_quantity, status, created_at, updated_at
+  // id, donation_id, donation_title, requester_id, requester_name, message, requested_quantity, status, created_at, updated_at
 }
 
 export interface CreateRequestDTO {
@@ -35,6 +37,10 @@ export class RequestsService {
 
   getMyRequests(): Observable<DonationRequestDTO[]> {
     return this.http.get<DonationRequestDTO[]>(`${this.baseUrl}/me`);
+  }
+
+  getAll(): Observable<DonationRequestDTO[]> {
+    return this.http.get<DonationRequestDTO[]>(this.baseUrl);
   }
 
   create(data: CreateRequestDTO): Observable<DonationRequestDTO> {
