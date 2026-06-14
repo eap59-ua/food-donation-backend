@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from '../../core/auth.service';
 @Component({
   selector: 'app-donation-new',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, FormsModule, IonContent, RouterModule, TopbarComponent],
   templateUrl: './donation-new.page.html',
   styleUrl: './donation-new.page.scss'
 })

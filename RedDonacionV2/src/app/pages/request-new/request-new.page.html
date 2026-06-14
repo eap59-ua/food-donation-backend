@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/donations"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Solicitar Ayuda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <main class="page-body page-shell soft-hero">
+    <div *ngIf="loading" class="card loading-state">Cargando donación...</div>
+    <div *ngIf="error && !donation" class="error-box">{{ error }}</div>
+    
+    <form *ngIf="donation" class="form-card wide" (ngSubmit)="submit()">
+      <h1>Solicitar Ayuda</h1>
+      <p>Envía una solicitud al donante para coordinar la recogida.</p>
+      <div class="summary card">
+        <h2>{{ donation.title }}</h2>
+        <div class="food-meta">
+          <span><strong>{{ donation.quantity }}</strong>Cantidad</span>
+          <span><strong>{{ donation.location_address }}</strong>Ubicación</span>
+          <span><strong>{{ formatDate(donation.expiration_date) }}</strong>Caducidad</span>
+          <span [class]="statusPillClass(donation.status)">{{ donationStatusLabel(donation.status) }}</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Cantidad solicitada</label>
+        <input class="native-control" name="quantity" type="text" [(ngModel)]="requestedQuantity">
+      </div>
+      <div class="field">
+        <label>Mensaje para el donante</label>
+        <textarea class="native-control" name="message" placeholder="Explica quién eres, para qué lo necesitas y cuándo puedes recogerlo..." [(ngModel)]="message"></textarea>
+      </div>
+      <div *ngIf="error" class="error-box">{{ error }}</div>
+      <div class="actions end">
+        <a class="btn-ghost" [routerLink]="['/tabs/donations', donation.id]">Cancelar</a>
+        <button class="btn-green" type="submit" [disabled]="sending">{{ sending ? 'Enviando...' : 'Solicitar' }}</button>
+      </div>
+    </form>
+  </main>
+</ion-content>

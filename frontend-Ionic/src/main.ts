@@ -1,8 +1,8 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { PreloadAllModules, RouteReuseStrategy, provideRouter, withPreloading } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   leafOutline, heartOutline, giftOutline, gridOutline, personOutline, logOutOutline,
@@ -32,9 +32,10 @@ addIcons({
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular({ mode: 'ios' }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(),
-    importProvidersFrom(IonicModule.forRoot({ mode: 'ios' }))
+    provideHttpClient()
   ]
 }).catch(err => console.error(err));

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="principal"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>RedDonación — Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="soft-hero">
+  <main>
+    <section class="hero soft-hero page-shell" style="padding: 60px 0 40px">
+      <div class="hero-copy">
+        <h1 class="title-xl">Rescatar comida.<span>Nutrir comunidades.</span></h1>
+        <p class="lead">Conectamos excedentes alimentarios con organizaciones que más lo necesitan.</p>
+        <div class="actions">
+          <a class="btn-primary" routerLink="/tabs/donations/new">
+            Quiero Donar <ion-icon name="arrow-forward-outline"></ion-icon>
+          </a>
+          <a class="btn-secondary" routerLink="/tabs/donations">Soy una Organización</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-shell" style="padding: 32px 0 80px">
+      <div class="card" style="padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+        <div>
+          <h2>Actividad reciente</h2>
+          <p>{{ donations.length }} donaciones cargadas desde la API.</p>
+          <a class="btn-ghost" routerLink="/tabs/donations">Ver donaciones</a>
+        </div>
+        <div class="card" style="padding: 22px; background: #f3fae9;">
+          <h2>Crear nueva donación</h2>
+          <p>Publica excedentes en menos de un minuto.</p>
+          <a class="btn-primary" routerLink="/tabs/donations/new">Publicar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -17,7 +17,7 @@ interface RequestVM extends AidRequest {
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './requests.page.html',
   styleUrl: './requests.page.scss'
 })

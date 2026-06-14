@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="principal"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <main class="page-body page-shell soft-hero">
+    <div class="profile-grid">
+      <section class="profile-main card">
+        <div class="profile-head">
+          <div class="avatar"><ion-icon name="person-outline"></ion-icon></div>
+          <div>
+            <span class="pill pill-orange">{{ roleLabel(auth.user?.role) }}</span>
+            <h1>{{ auth.user?.name || 'Usuario' }}</h1>
+            <p>{{ auth.user?.email || 'Sin correo' }}</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Información Personal</h2>
+          <div class="field-row"><span>Nombre</span><strong>{{ auth.user?.name || 'Sin datos' }}</strong></div>
+          <div class="field-row"><span>Correo</span><strong>{{ auth.user?.email || 'Sin datos' }}</strong></div>
+          <div class="field-row"><span>Rol</span><strong>{{ roleLabel(auth.user?.role) }}</strong></div>
+          <div class="field-row"><span>Alta</span><strong>{{ formatDate(auth.user?.created_at) }}</strong></div>
+        </div>
+      </section>
+
+      <aside class="side-stack">
+        <div class="side-card card score">
+          <h3>Impacto</h3>
+          <strong>0</strong>
+          <span>Donaciones gestionadas desde esta sesión</span>
+        </div>
+        <div class="side-card card">
+          <h3>Estado de cuenta</h3>
+          <p><span class="pill pill-green">{{ auth.user?.is_active ? 'Activa' : 'Inactiva' }}</span></p>
+        </div>
+        <div class="side-card card tips">
+          <h3>Permisos por rol</h3>
+          <p><strong>DONANTE:</strong> crea donaciones y aprueba solicitudes.</p>
+          <p><strong>RECEPTOR/ONG:</strong> solicita donaciones disponibles.</p>
+          <p><strong>ADMIN:</strong> puede operar ambos flujos.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+</ion-content>

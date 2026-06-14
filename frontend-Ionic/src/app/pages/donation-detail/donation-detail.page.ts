@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -11,7 +11,7 @@ import { donationStatusLabel, formatDate, statusPillClass } from '../../core/for
 @Component({
   selector: 'app-donation-detail',
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './donation-detail.page.html',
   styleUrl: './donation-detail.page.scss'
 })

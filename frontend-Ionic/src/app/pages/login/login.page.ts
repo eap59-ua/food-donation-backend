@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonItem, IonInput, IonButton, IonIcon, IonAlert } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, ReactiveFormsModule, IonContent, IonItem, IonInput, IonButton, IonIcon, IonAlert, RouterModule, TopbarComponent],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss'
 })

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -13,7 +13,7 @@ import { formatDate, requestStatusLabel, statusPillClass } from '../../core/form
 @Component({
   selector: 'app-request-detail',
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './request-detail.page.html',
   styleUrl: './request-detail.page.scss'
 })

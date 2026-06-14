@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { Donation } from '../../core/models';
@@ -11,7 +11,7 @@ import { donationStatusLabel, formatDate, statusPillClass } from '../../core/for
 @Component({
   selector: 'app-request-new',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, FormsModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './request-new.page.html',
   styleUrl: './request-new.page.scss'
 })

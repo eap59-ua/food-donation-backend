@@ -1,0 +1,39 @@
+<ion-content class="soft-hero">
+  <main class="auth-page page-shell">
+    <section class="auth-center">
+      <div class="auth-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+      <h1 class="form-title">Bienvenido</h1>
+      <p class="form-subtitle">Continúa con tu cuenta de RedDonación</p>
+
+      <form class="form-card" [formGroup]="formLogin" (ngSubmit)="doLogin()">
+        <ion-item class="field" lines="none">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input formControlName="email" type="email" placeholder="tu@correo.org"
+            label="Correo Electrónico" labelPlacement="stacked"></ion-input>
+        </ion-item>
+
+        <ion-item class="field" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input formControlName="password" type="password" placeholder="••••••••"
+            label="Contraseña" labelPlacement="stacked"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" [disabled]="loading" class="ion-margin-top">
+          {{ loading ? 'Entrando...' : 'Iniciar Sesión' }}
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+
+        <div class="form-separator"></div>
+        <p class="switch-text">¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+      </form>
+
+      <ion-alert
+        [isOpen]="error !== ''"
+        header="Aviso"
+        [message]="error"
+        [buttons]="['OK']"
+        (didDismiss)="error = ''"
+      ></ion-alert>
+    </section>
+  </main>
+</ion-content>

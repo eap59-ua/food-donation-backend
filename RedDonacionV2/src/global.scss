@@ -1,0 +1,198 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+* { box-sizing: border-box; }
+html, body { height: 100%; background: #fff; }
+body { margin: 0; color: var(--ion-text-color); }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+
+ion-button { --border-radius: 18px; text-transform: none; font-weight: 700; letter-spacing: -0.01em; }
+ion-input, ion-textarea, ion-select { --border-radius: 16px; --padding-start: 16px; --padding-end: 16px; }
+
+:root {
+  --rd-primary: #bc6328;
+  --rd-primary-dark: #9f4f1c;
+  --rd-text: #2e2849;
+  --rd-muted: #706f7b;
+  --rd-line: #eadfd5;
+  --rd-soft: #f9f3ed;
+  --rd-soft-green: #f2f8eb;
+  --rd-green: #8fbd4c;
+  --rd-ok: #73b33f;
+  --rd-danger: #dc3e45;
+  --rd-card: #fffaf5;
+  --rd-shadow: 0 22px 50px rgba(73, 52, 38, 0.08);
+  --rd-radius: 24px;
+  --rd-max: 1320px;
+}
+
+.page-shell {
+  width: min(var(--rd-max), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.soft-hero {
+  background:
+    radial-gradient(circle at 95% 88%, rgba(155, 195, 83, .24) 0 18%, rgba(155, 195, 83, 0) 43%),
+    radial-gradient(circle at 96% 7%, rgba(193, 111, 58, .22) 0 24%, rgba(193, 111, 58, 0) 55%),
+    linear-gradient(132deg, #fff 0 36%, #f8eee7 37% 62%, #f3fae9 100%);
+  border-top: 1px solid var(--rd-line);
+}
+
+.section-title { text-align: center; margin: 0 0 14px; font-size: clamp(28px, 3.4vw, 42px); color: var(--rd-text); letter-spacing: -0.05em; }
+.section-subtitle { text-align: center; margin: 0 auto; max-width: 620px; color: var(--rd-muted); font-size: 17px; line-height: 1.55; }
+
+.title-xl {
+  margin: 24px 0 20px;
+  font-size: clamp(48px, 6.7vw, 86px);
+  line-height: .93;
+  letter-spacing: -0.075em;
+  color: var(--rd-text);
+}
+.title-xl span { color: var(--rd-primary); display: block; }
+.lead { max-width: 720px; color: var(--rd-muted); font-size: clamp(18px, 2vw, 23px); line-height: 1.45; margin: 0 0 34px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+.btn-primary, .btn-secondary, .btn-danger, .btn-ghost, .btn-green {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 46px; padding: 0 24px; border-radius: 17px; border: 0; cursor: pointer;
+  font-weight: 800; transition: .2s ease; white-space: nowrap; text-decoration: none;
+}
+.btn-primary { color: white; background: var(--rd-primary); box-shadow: 0 16px 26px rgba(188, 99, 40, .22); }
+.btn-primary:hover { background: var(--rd-primary-dark); transform: translateY(-1px); }
+.btn-secondary { color: var(--rd-text); background: #f5faec; border: 1px solid #ddebc9; }
+.btn-green { color: white; background: var(--rd-ok); }
+.btn-danger { color: #e23e44; background: #fff0f2; border: 1px solid #ffd9de; }
+.btn-ghost { color: var(--rd-primary); background: #fff; border: 1px solid var(--rd-line); }
+.full { width: 100%; }
+.end { justify-content: flex-end; }
+
+.card {
+  background: rgba(255, 255, 255, .86);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  box-shadow: var(--rd-shadow);
+}
+
+.form-card { width: min(520px, calc(100vw - 44px)); padding: 36px; border: 1px solid #50505d; border-radius: 22px; background: rgba(255,255,255,.94); box-shadow: 0 18px 38px rgba(0,0,0,.10); }
+.form-card.wide { width: min(750px, calc(100vw - 44px)); }
+.form-title { text-align: center; font-size: 42px; letter-spacing: -0.06em; margin: 16px 0 8px; }
+.form-subtitle { text-align: center; color: var(--rd-muted); margin: 0 0 28px; font-size: 20px; }
+.field { margin: 16px 0; }
+.field label { display: flex; gap: 8px; align-items: center; margin: 0 0 8px; color: var(--rd-text); font-weight: 800; font-size: 14px; }
+.native-control {
+  width: 100%; min-height: 54px; padding: 0 17px; border-radius: 17px; border: 1.5px solid #777684; outline: none; background: #fff; color: var(--rd-text);
+}
+.native-control:focus { border-color: var(--rd-primary); box-shadow: 0 0 0 3px rgba(188,99,40,.12); }
+textarea.native-control { padding-top: 15px; min-height: 118px; resize: vertical; }
+.error-box { color: #b81e2f; background: #fff0f2; border: 1px solid #ffcdd5; border-radius: 14px; padding: 12px 14px; margin: 14px 0; font-weight: 700; }
+.info-box { color: #6d5c10; background: #fff8dc; border: 1px solid #f0df9a; border-radius: 14px; padding: 12px 14px; margin: 14px 0; }
+.success-box { color: #386b1e; background: #f1fae9; border: 1px solid #ccebb6; border-radius: 14px; padding: 12px 14px; margin: 14px 0; font-weight: 700; }
+.two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.list-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 28px; flex-wrap: wrap; }
+.list-title { margin: 0; font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.055em; }
+.toolbar-actions { display: flex; align-items: center; gap: 12px; }
+.pill { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 7px 12px; font-weight: 800; font-size: 13px; }
+.pill-green { color: #4d8b27; background: #eff9e8; }
+.pill-orange { color: var(--rd-primary); background: #fff0e6; }
+.pill-red { color: var(--rd-danger); background: #fff1f2; }
+.pill-gray { color: var(--rd-muted); background: #f1f1f3; }
+.search-row { display: flex; gap: 10px; align-items: center; margin: 0 0 28px; }
+.search-row input { flex: 1; }
+.item-list { display: grid; gap: 18px; }
+.food-card { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; padding: 26px 30px; background: rgba(255,255,255,.82); border: 1px solid #ede3da; border-radius: 18px; }
+.food-title { font-size: 22px; font-weight: 900; color: var(--rd-text); letter-spacing: -0.045em; margin: 0 0 8px; }
+.food-meta { display: flex; flex-wrap: wrap; gap: 18px; color: var(--rd-muted); font-weight: 650; font-size: 13px; }
+.food-meta strong { display: block; color: var(--rd-text); font-size: 14px; margin-bottom: 2px; }
+
+.detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 22px; }
+.detail-main, .side-card { padding: 28px; }
+.side-stack { display: flex; flex-direction: column; gap: 16px; }
+.detail-title { margin: 0 0 10px; font-size: 34px; letter-spacing: -0.055em; }
+.detail-desc { color: var(--rd-muted); line-height: 1.65; margin: 18px 0; }
+.data-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 22px 0; }
+.data-box { border: 1px solid #eee0d6; border-radius: 16px; padding: 16px; background: #fffaf7; }
+.data-label { color: var(--rd-muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+.data-value { color: var(--rd-text); font-size: 16px; font-weight: 850; margin-top: 4px; }
+.manager-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.side-link { margin-top: 12px; }
+
+.page-body { padding: 32px 0 80px; }
+.content-card { padding: 28px; margin: 32px 0; }
+.auth-page { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; }
+.auth-center { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.auth-icon { font-size: 48px; color: var(--rd-primary); margin-bottom: 16px; }
+.form-separator { height: 1px; background: var(--rd-line); margin: 24px 0; }
+.switch-text { text-align: center; color: var(--rd-muted); font-size: 15px; margin: 0; }
+.switch-text a { color: var(--rd-primary); font-weight: 700; }
+.terms { color: var(--rd-muted); font-size: 13px; text-align: center; margin-top: 24px; }
+
+.success-page { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; }
+.success-card { width: min(500px, 100%); text-align: center; padding: 40px; }
+.big-check { font-size: 64px; color: var(--rd-ok); margin-bottom: 24px; }
+
+.profile-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 22px; padding: 32px 0; }
+.profile-main { padding: 28px; }
+.profile-head { display: flex; gap: 20px; align-items: center; margin-bottom: 28px; }
+.avatar { font-size: 48px; color: var(--rd-primary); }
+.panel { margin-top: 24px; }
+.panel h2 { font-size: 18px; margin: 0 0 16px; }
+.field-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--rd-line); font-size: 15px; }
+.score { text-align: center; }
+.score strong { font-size: 48px; display: block; color: var(--rd-primary); }
+.score span { color: var(--rd-muted); font-size: 13px; }
+.tips p { font-size: 13px; color: var(--rd-muted); margin: 6px 0; }
+
+.empty-state { padding: 42px; text-align: center; color: var(--rd-muted); }
+.loading-state { padding: 34px; text-align: center; color: var(--rd-muted); }
+
+@media (max-width: 900px) {
+  .page-shell { width: min(100% - 24px, var(--rd-max)); }
+  .title-xl { font-size: clamp(42px, 15vw, 72px); }
+  .detail-grid { grid-template-columns: 1fr; }
+  .profile-grid { grid-template-columns: 1fr; }
+  .food-card { grid-template-columns: 1fr; }
+  .list-toolbar { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 560px) {
+  .data-grid { grid-template-columns: 1fr; }
+  .form-card { padding: 24px; }
+  .two-cols { grid-template-columns: 1fr; }
+  .search-row { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary, .btn-danger, .btn-ghost, .btn-green { width: 100%; }
+}
+
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { ApiService } from '../../core/api.service';
 import { Donation } from '../../core/models';
@@ -9,7 +9,7 @@ import { Donation } from '../../core/models';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.scss'
 })

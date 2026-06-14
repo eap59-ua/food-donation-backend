@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { AuthService } from '../../core/auth.service';
 import { UserRole } from '../../core/models';
@@ -10,7 +10,7 @@ import { UserRole } from '../../core/models';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TopbarComponent],
+  imports: [CommonModule, FormsModule, IonContent, IonIcon, RouterModule, TopbarComponent],
   templateUrl: './register.page.html',
   styleUrl: './register.page.scss'
 })
