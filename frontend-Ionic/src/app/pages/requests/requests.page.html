@@ -1,0 +1,45 @@
+<ion-content>
+  <app-topbar active="requests"></app-topbar>
+  <main class="page-body page-shell soft-hero">
+    <section class="card content-card">
+      <div class="list-toolbar">
+        <div>
+          <h1 class="list-title">Solicitudes de Ayuda</h1>
+          <p>Gestiona solicitudes realizadas o recibidas según el rol del usuario autenticado.</p>
+        </div>
+        <span class="pill pill-orange">{{ requests.length }} solicitudes</span>
+      </div>
+
+      @if (loading) {
+        <div class="loading-state">Cargando solicitudes...</div>
+      } @else if (error) {
+        <div class="error-box">{{ error }}</div>
+      } @else if (!requests.length) {
+        <div class="empty-state">Todavía no hay solicitudes asociadas a esta cuenta.</div>
+      } @else {
+        <div class="item-list">
+          @for (request of requests; track request.id) {
+            <article class="food-card soft">
+              <div>
+                <h2 class="food-title">{{ request.donation?.title || 'Solicitud de donación' }}</h2>
+                <div class="food-meta">
+                  <span><strong>{{ request.requested_quantity || request.donation?.quantity || 'Sin cantidad' }}</strong>Cantidad solicitada</span>
+                  <span><strong>{{ request.donation?.location_address || 'Sin ubicación' }}</strong>Ubicación</span>
+                  <span><strong>{{ formatDate(request.created_at) }}</strong>Fecha</span>
+                  <span [class]="statusPillClass(request.status)">{{ requestStatusLabel(request.status) }}</span>
+                </div>
+              </div>
+              <div class="request-actions">
+                <a class="btn-primary" [routerLink]="['/requests', request.id]">Ver detalles</a>
+                @if (canApprove()) {
+                  <button class="btn-green small" type="button" [disabled]="updatingId === request.id" (click)="updateStatus(request, 'APPROVED')">Aprobar</button>
+                  <button class="btn-danger small" type="button" [disabled]="updatingId === request.id" (click)="updateStatus(request, 'REJECTED')">Rechazar</button>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
+  </main>
+</ion-content>

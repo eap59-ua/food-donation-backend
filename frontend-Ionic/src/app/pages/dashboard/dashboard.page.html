@@ -1,0 +1,59 @@
+<ion-content>
+  <app-topbar active="dashboard"></app-topbar>
+  <main>
+    <section class="hero soft-hero page-shell">
+      <div class="hero-copy">
+        <h1 class="title-xl">Rescatar comida.<span>Nutrir comunidades.</span></h1>
+        <p class="lead">Conectamos rápidamente excedentes alimentarios de empresas con las organizaciones que más lo necesitan, reduciendo el desperdicio y multiplicando el impacto social.</p>
+        <div class="actions">
+          <a class="btn-primary" routerLink="/donations/new">Quiero Donar <ion-icon name="arrow-forward-outline"></ion-icon></a>
+          <a class="btn-secondary" routerLink="/donations">Soy una Organización</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-stats page-shell">
+      <div class="wide-stats card">
+        <article>
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <strong>+1,200</strong>
+          <span>Kilos Salvados este Mes</span>
+        </article>
+        <article>
+          <ion-icon name="heart-outline"></ion-icon>
+          <strong>15</strong>
+          <span>ONGs Registradas</span>
+        </article>
+        <article>
+          <ion-icon name="people-outline"></ion-icon>
+          <strong>340</strong>
+          <span>Familias Ayudadas</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="process page-shell">
+      <h2 class="section-title">Un proceso simple y transparente</h2>
+      <p class="section-subtitle">Nuestra plataforma automatiza la logística solidaria para que la ayuda llegue donde se necesita, en tiempo real.</p>
+      <div class="process-grid">
+        <article><span class="round-icon orange"><ion-icon name="cube-outline"></ion-icon></span><h3>1. Publica el excedente</h3><p>Registra tus alimentos disponibles indicando cantidad, ubicación y caducidad.</p></article>
+        <article><span class="round-icon green"><ion-icon name="shield-checkmark-outline"></ion-icon></span><h3>2. Smart Match</h3><p>Conectamos automáticamente con entidades cercanas que pueden recogerlo.</p></article>
+        <article><span class="round-icon green"><ion-icon name="heart-outline"></ion-icon></span><h3>3. Recolección</h3><p>La trazabilidad del proceso permite saber el estado real de cada donación.</p></article>
+      </div>
+    </section>
+
+    <section class="quick page-shell">
+      <div class="card quick-card">
+        <h2>Actividad reciente</h2>
+        <p>{{ donations.length }} donaciones cargadas desde la API.</p>
+        <a class="btn-ghost" routerLink="/donations">Ver donaciones</a>
+      </div>
+      <div class="card quick-card accent">
+        <h2>Crear nueva donación</h2>
+        <p>Publica excedentes en menos de un minuto.</p>
+        <a class="btn-primary" routerLink="/donations/new">Publicar</a>
+      </div>
+    </section>
+  </main>
+  <footer class="dashboard-footer page-shell"><span><ion-icon name="leaf-outline"></ion-icon> RedDonación</span><span>© 2026 Red de Donación de Alimentos. Todos los derechos reservados.</span></footer>
+</ion-content>

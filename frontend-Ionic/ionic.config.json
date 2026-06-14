@@ -1,0 +1,7 @@
+{
+  "name": "RedDonacion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,111 @@
+<ion-content>
+  <app-topbar [publicMode]="true"></app-topbar>
+
+  <main>
+    <section class="hero soft-hero page-shell">
+      <div class="hero-copy">
+        <span class="kicker"><ion-icon name="leaf-outline"></ion-icon> Bienvenido a RedDonación</span>
+        <h1 class="title-xl">Rescatar comida.<span>Nutrir comunidades.</span></h1>
+        <p class="lead">Conectamos rápidamente excedentes alimentarios de empresas con las organizaciones que más lo necesitan, reduciendo el desperdicio y multiplicando el impacto social.</p>
+        <div class="actions">
+          <ion-button color="primary" routerLink="/register">
+            Quiero Donar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+          
+          <ion-button fill="outline" color="primary" routerLink="/register">
+            Soy una Organización <ion-icon slot="end" name="shield-checkmark-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </section>
+
+    <section id="impacto" class="stats page-shell">
+      <div class="stat-grid">
+        <article class="stat-card">
+          <ion-icon class="stat-icon" name="restaurant-outline"></ion-icon>
+          <div class="stat-value">+1,200</div>
+          <div class="stat-label">Kilos Rescatados</div>
+        </article>
+        <article class="stat-card">
+          <ion-icon class="stat-icon" name="heart-outline"></ion-icon>
+          <div class="stat-value">15</div>
+          <div class="stat-label">ONGs Activas</div>
+        </article>
+        <article class="stat-card">
+          <ion-icon class="stat-icon" name="people-outline"></ion-icon>
+          <div class="stat-value">340</div>
+          <div class="stat-label">Familias Ayudadas</div>
+        </article>
+        <article class="stat-card">
+          <ion-icon class="stat-icon" name="trending-up-outline"></ion-icon>
+          <div class="stat-value">98%</div>
+          <div class="stat-label">Comida Entregada</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="process page-shell">
+      <h2 class="section-title">Un proceso simple y transparente</h2>
+      <p class="section-subtitle">Nuestra plataforma automatiza la logística solidaria para que la ayuda llegue donde se necesita, en tiempo real.</p>
+      <div class="process-grid">
+        <article>
+          <span class="round-icon orange"><ion-icon name="cube-outline"></ion-icon></span>
+          <h3>1. Publica el Excedente</h3>
+          <p>Los restaurantes y supermercados registran sus alimentos disponibles, indicando cantidad y caducidad de forma sencilla.</p>
+        </article>
+        <article>
+          <span class="round-icon green"><ion-icon name="shield-checkmark-outline"></ion-icon></span>
+          <h3>2. Smart Match</h3>
+          <p>El sistema notifica instantáneamente a las organizaciones certificadas cercanas que necesitan exactamente ese tipo de donación.</p>
+        </article>
+        <article>
+          <span class="round-icon green"><ion-icon name="heart-outline"></ion-icon></span>
+          <h3>3. Recepción & Impacto</h3>
+          <p>La organización acude a recogerla localmente. Todo queda trazado generando reportes de impacto real.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="designed page-shell">
+      <h2 class="section-title">Diseñado para Todos</h2>
+      <p class="section-subtitle">Herramientas potentes y fáciles de usar para donantes y organizaciones.</p>
+      <div class="designed-grid">
+        <div>
+          <h3>Para Donantes y Empresas</h3>
+          <ul>
+            <li><span>✓</span><strong>Reduce Desperdicio</strong><small>Dale segunda vida a tus excedentes alimentarios</small></li>
+            <li><span>✓</span><strong>Impacto Medible</strong><small>Reportes detallados de tu aporte social</small></li>
+            <li><span>✓</span><strong>Certificación</strong><small>Documentación para exenciones fiscales</small></li>
+            <li><span>✓</span><strong>Fácil y Rápido</strong><small>Publica en minutos desde tu teléfono</small></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Para Organizaciones</h3>
+          <ul class="green-list">
+            <li><span>✓</span><strong>Acceso Verificado</strong><small>Red de donantes confiables y verificados</small></li>
+            <li><span>✓</span><strong>Matching Automático</strong><small>Sistema inteligente conecta necesidades</small></li>
+            <li><span>✓</span><strong>Reportes Detallados</strong><small>Evidencia del impacto de tu trabajo</small></li>
+            <li><span>✓</span><strong>Red Global</strong><small>Conecta con otros actores del cambio</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta page-shell">
+      <h2>¿Listo para hacer la diferencia?</h2>
+      <p>Únete a RedDonación y sé parte del cambio</p>
+      
+      <ion-button color="primary" size="large" routerLink="/register">
+        Comienza Ahora <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </section>
+  </main>
+
+  <footer class="footer page-shell">
+    <div class="footer-brand"><span class="brand-mini"><ion-icon name="leaf-outline"></ion-icon></span> RedDonación <small>Conectando solidaridad con acción.</small></div>
+    <div><strong>Producto</strong><a>Características</a><a>Precios</a><a>Blog</a></div>
+    <div><strong>Legal</strong><a>Privacidad</a><a>Términos</a><a>Cookies</a></div>
+    <div><strong>Conecta</strong><a>Twitter</a><a>LinkedIn</a><a>Instagram</a></div>
+  </footer>
+  <div class="copyright page-shell">© 2026 RedDonación. Todos los derechos reservados.</div>
+</ion-content>

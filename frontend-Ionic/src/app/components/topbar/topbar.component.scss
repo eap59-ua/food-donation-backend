@@ -1,0 +1,64 @@
+.topbar {
+  height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--rd-line);
+  background: rgba(255, 255, 255, .92);
+  position: relative;
+  z-index: 10;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--rd-primary);
+  letter-spacing: -0.045em;
+}
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--rd-primary);
+  background: #f7e9df;
+  font-size: 25px;
+}
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  color: #6f6b78;
+  font-weight: 700;
+}
+.main-nav a { display: inline-flex; align-items: center; gap: 6px; }
+.main-nav a.active { color: var(--rd-primary); }
+.nav-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+.link-action { padding: 13px 12px; font-weight: 800; color: var(--rd-text); }
+.primary-action, .soft-action, .danger-action {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 20px; border-radius: 18px;
+  border: 0; font-weight: 800; cursor: pointer;
+}
+.primary-action { background: var(--rd-primary); color: white; }
+.soft-action { background: #f6f8ef; color: var(--rd-text); }
+.soft-action.active { background: #fff0e7; color: var(--rd-primary); }
+.danger-action { background: #fff0f2; color: #e23e44; }
+.mobile-menu { display: none; justify-self: end; background: #fff8f2; border: 1px solid var(--rd-line); border-radius: 12px; min-width: 42px; min-height: 38px; font-weight: 900; }
+@media (max-width: 880px) {
+  .topbar { height: auto; min-height: 76px; grid-template-columns: 1fr auto; padding-top: 12px; padding-bottom: 12px; }
+  .mobile-menu { display: block; }
+  .main-nav, .nav-actions { display: none; grid-column: 1 / -1; justify-content: stretch; align-items: stretch; flex-direction: column; gap: 10px; padding: 8px 0; }
+  .main-nav.open, .nav-actions.open { display: flex; }
+  .main-nav a, .link-action, .primary-action, .soft-action, .danger-action { width: 100%; justify-content: center; }
+}

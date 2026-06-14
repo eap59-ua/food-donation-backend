@@ -1,0 +1,6 @@
+.page-body { min-height: calc(100vh - 88px); padding: 70px 34px 120px; }
+.side-stack { display: grid; gap: 18px; align-content: start; }
+.side-card h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; letter-spacing: -0.04em; }
+.side-card h3 ion-icon { color: var(--rd-primary); }
+.side-card p { color: var(--rd-muted); line-height: 1.55; margin: 0; }
+.manager-actions { display: grid; gap: 10px; }

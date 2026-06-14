@@ -1,0 +1,6 @@
+.page-body { min-height: calc(100vh - 88px); padding: 70px 34px 120px; }
+.content-card { padding: 34px; background: rgba(255,255,255,.78); }
+.list-toolbar p { color: var(--rd-muted); margin: 10px 0 0; }
+.request-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.small { min-height: 40px; padding: 0 14px; }
+@media(max-width: 900px) { .request-actions { justify-content: flex-start; } }

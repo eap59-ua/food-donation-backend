@@ -1,0 +1,5 @@
+.success-page { min-height: calc(100vh - 88px); display: grid; place-items: center; padding: 80px 20px; }
+.success-card { width: min(430px, calc(100vw - 36px)); text-align: center; padding: 42px 32px; }
+.big-check { margin: 0 auto 18px; width: 104px; height: 104px; border-radius: 50%; background: #35aa48; color: #fff; display: grid; place-items: center; font-size: 70px; }
+h1 { margin: 0 0 10px; letter-spacing: -0.05em; }
+p { color: var(--rd-muted); margin: 0 0 22px; }

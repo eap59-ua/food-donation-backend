@@ -1,0 +1,38 @@
+{
+  "name": "red-donacion-ionic",
+  "version": "1.0.0",
+  "description": "Frontend prototipo Ionic Angular para RedDonación usando la API FastAPI GCS-08",
+  "author": "GCS-08 / Prototipo Ionic",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --host 0.0.0.0 --port 8100",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "ionic:serve": "ionic serve",
+    "cap:sync": "npx cap sync"
+  },
+  "dependencies": {
+    "@angular/animations": "^18.2.13",
+    "@angular/common": "^18.2.13",
+    "@angular/compiler": "^18.2.13",
+    "@angular/core": "^18.2.13",
+    "@angular/forms": "^18.2.13",
+    "@angular/platform-browser": "^18.2.13",
+    "@angular/platform-browser-dynamic": "^18.2.13",
+    "@angular/router": "^18.2.13",
+    "@ionic/angular": "^8.4.3",
+    "ionicons": "^7.4.0",
+    "rxjs": "~7.8.1",
+    "tslib": "^2.6.3",
+    "zone.js": "~0.14.10",
+    "@capacitor/core": "^6.2.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^18.2.13",
+    "@angular/cli": "^18.2.13",
+    "@angular/compiler-cli": "^18.2.13",
+    "typescript": "~5.5.4",
+    "@capacitor/cli": "^6.2.1"
+  }
+}

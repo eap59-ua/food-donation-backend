@@ -1,0 +1,48 @@
+<ion-content>
+  <app-topbar active="requests"></app-topbar>
+  <main class="page-body page-shell soft-hero">
+    @if (loading) {
+      <div class="card loading-state">Cargando solicitud...</div>
+    } @else if (error && !request) {
+      <div class="error-box">{{ error }}</div>
+    } @else if (request) {
+      <div class="detail-grid">
+        <section class="detail-main card">
+          <span [class]="statusPillClass(request.status)">{{ requestStatusLabel(request.status) }}</span>
+          <h1 class="detail-title">{{ donation?.title || 'Solicitud de ayuda' }}</h1>
+          <p class="detail-desc">{{ request.message || 'Solicitud sin mensaje adicional.' }}</p>
+          <div class="data-grid">
+            <div class="data-box"><div class="data-label">Cantidad solicitada</div><div class="data-value">{{ request.requested_quantity || donation?.quantity || 'Sin cantidad' }}</div></div>
+            <div class="data-box"><div class="data-label">Solicitante</div><div class="data-value">{{ request.requester_id.slice(0, 8) }}</div></div>
+            <div class="data-box"><div class="data-label">Fecha solicitud</div><div class="data-value">{{ formatDate(request.created_at) }}</div></div>
+            <div class="data-box"><div class="data-label">Donación</div><div class="data-value">{{ request.donation_id.slice(0, 8) }}</div></div>
+          </div>
+          @if (error) { <div class="error-box">{{ error }}</div> }
+          <div class="actions">
+            <a class="btn-ghost" routerLink="/requests">Volver</a>
+            @if (canApprove()) {
+              <button class="btn-green" type="button" [disabled]="updating" (click)="updateStatus('APPROVED')">Aprobar</button>
+              <button class="btn-danger" type="button" [disabled]="updating" (click)="updateStatus('REJECTED')">Rechazar</button>
+            }
+          </div>
+        </section>
+        <aside class="side-stack">
+          <div class="side-card card">
+            <h3><ion-icon name="gift-outline"></ion-icon> Donación asociada</h3>
+            @if (donation) {
+              <p><strong>{{ donation.title }}</strong></p>
+              <p>{{ donation.quantity }} · {{ donation.location_address }}</p>
+              <a class="btn-ghost side-link" [routerLink]="['/donations', donation.id]">Ver donación</a>
+            } @else {
+              <p>No se pudo cargar el detalle de la donación.</p>
+            }
+          </div>
+          <div class="side-card card">
+            <h3><ion-icon name="help-circle-outline"></ion-icon> Próximo paso</h3>
+            <p>Si apruebas la solicitud, el backend marca la donación como reservada.</p>
+          </div>
+        </aside>
+      </div>
+    }
+  </main>
+</ion-content>

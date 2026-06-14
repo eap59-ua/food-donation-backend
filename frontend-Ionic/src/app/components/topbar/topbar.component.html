@@ -1,0 +1,29 @@
+<header class="topbar page-shell" [class.public-mode]="publicMode">
+  <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Ir a inicio">
+    <span class="brand-mark"><ion-icon name="leaf-outline"></ion-icon></span>
+    <span>RedDonación</span>
+  </a>
+
+  <button type="button" class="mobile-menu" (click)="menuOpen = !menuOpen" aria-label="Abrir menú">☰</button>
+
+  <nav class="main-nav" [class.open]="menuOpen">
+    @if (publicMode) {
+      <a routerLink="/" fragment="como-funciona" (click)="closeMenu()">Cómo Funciona</a>
+      <a routerLink="/" fragment="impacto" (click)="closeMenu()">Impacto</a>
+    } @else {
+      <a routerLink="/donations" [class.active]="active === 'donations'" (click)="closeMenu()"><ion-icon name="gift-outline"></ion-icon> Donaciones</a>
+      <a routerLink="/requests" [class.active]="active === 'requests'" (click)="closeMenu()"><ion-icon name="heart-outline"></ion-icon> Solicitudes</a>
+    }
+  </nav>
+
+  <div class="nav-actions" [class.open]="menuOpen">
+  @if (publicMode) {
+    <ion-button fill="clear" routerLink="/login" (click)="closeMenu()">Acceder</ion-button>
+    <ion-button color="primary" routerLink="/register" (click)="closeMenu()">Únete ahora</ion-button>
+  } @else {
+      <a class="soft-action" routerLink="/dashboard" [class.active]="active === 'dashboard'" (click)="closeMenu()"><ion-icon name="grid-outline"></ion-icon> Dashboard</a>
+      <a class="soft-action" routerLink="/profile" [class.active]="active === 'profile'" (click)="closeMenu()"><ion-icon name="person-outline"></ion-icon> Perfil</a>
+      <button class="danger-action" type="button" (click)="logout()">Cerrar Sesión <ion-icon name="log-out-outline"></ion-icon></button>
+    }
+  </div>
+</header>

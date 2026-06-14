@@ -1,0 +1,48 @@
+<ion-content>
+  <app-topbar active="donations"></app-topbar>
+  <main class="page-body page-shell soft-hero">
+    <section class="card content-card">
+      <div class="list-toolbar">
+        <div>
+          <h1 class="list-title">Donaciones Disponibles</h1>
+          <p>Consulta excedentes disponibles y solicita una recogida.</p>
+        </div>
+        <div class="toolbar-actions">
+          <span class="pill pill-green">{{ donations.length }} disponibles</span>
+          <a class="btn-primary" routerLink="/donations/new">Nueva donación</a>
+        </div>
+      </div>
+
+      <form class="search-row" (ngSubmit)="load()">
+        <input class="native-control" name="location" type="search" placeholder="Buscar por ubicación..." [(ngModel)]="location">
+        <button class="btn-primary" type="submit"><ion-icon name="search-outline"></ion-icon> Buscar</button>
+        @if (location) { <button class="btn-ghost" type="button" (click)="clearSearch()">Limpiar</button> }
+      </form>
+
+      @if (loading) {
+        <div class="loading-state">Cargando donaciones...</div>
+      } @else if (error) {
+        <div class="error-box">{{ error }}</div>
+      } @else if (!donations.length) {
+        <div class="empty-state">No hay donaciones disponibles con estos filtros.</div>
+      } @else {
+        <div class="item-list">
+          @for (donation of donations; track donation.id) {
+            <article class="food-card soft">
+              <div>
+                <h2 class="food-title">{{ donation.title }}</h2>
+                <div class="food-meta">
+                  <span><strong>{{ donation.quantity }}</strong>Cantidad</span>
+                  <span><strong>{{ donation.location_address }}</strong>Ubicación</span>
+                  <span><strong>{{ formatDate(donation.expiration_date) }}</strong>Caducidad</span>
+                  <span [class]="statusPillClass(donation.status)">{{ donationStatusLabel(donation.status) }}</span>
+                </div>
+              </div>
+              <a class="btn-primary" [routerLink]="['/donations', donation.id]">Ver detalles</a>
+            </article>
+          }
+        </div>
+      }
+    </section>
+  </main>
+</ion-content>

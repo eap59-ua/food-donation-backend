@@ -1,0 +1,5 @@
+.page-body { min-height: calc(100vh - 88px); padding: 70px 34px 120px; }
+.content-card { padding: 34px; background: rgba(255,255,255,.78); }
+.list-toolbar p { color: var(--rd-muted); margin: 10px 0 0; }
+.toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+@media(max-width: 560px) { .content-card { padding: 22px; } }

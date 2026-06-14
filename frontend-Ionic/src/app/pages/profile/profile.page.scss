@@ -1,0 +1,19 @@
+.page-body { min-height: calc(100vh - 88px); padding: 70px 34px 120px; }
+.profile-grid { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 22px; }
+.profile-main { padding: 32px; }
+.profile-head { display: flex; gap: 18px; align-items: center; margin-bottom: 26px; }
+.avatar { width: 78px; height: 78px; display: grid; place-items: center; border-radius: 18px; background: #fff0e6; color: var(--rd-primary); font-size: 42px; }
+h1 { margin: 10px 0 4px; font-size: 36px; letter-spacing: -0.055em; }
+p { color: var(--rd-muted); margin: 0; }
+.panel { background: #fffaf7; border: 1px solid #f0ded0; border-radius: 20px; padding: 24px; }
+.panel h2 { margin: 0 0 18px; letter-spacing: -0.045em; }
+.field-row { display: flex; justify-content: space-between; gap: 18px; padding: 16px 0; border-top: 1px solid #f1e4da; }
+.field-row span { color: var(--rd-muted); }
+.field-row strong { text-align: right; }
+.side-stack { display: grid; gap: 18px; align-content: start; }
+.side-card { padding: 24px; }
+.side-card h3 { margin: 0 0 14px; letter-spacing: -0.04em; }
+.score strong { display: block; font-size: 60px; line-height: .9; letter-spacing: -0.08em; color: var(--rd-primary); }
+.score span { color: var(--rd-muted); }
+.tips p { margin: 10px 0; line-height: 1.45; }
+@media(max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } .field-row { flex-direction: column; } .field-row strong { text-align: left; } }

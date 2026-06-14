@@ -1,0 +1,6 @@
+.auth-page { min-height: calc(100vh - 88px); display: grid; place-items: center; padding: 80px 20px 120px; background: linear-gradient(120deg, #f8eee7 0 50%, #f4faeb 100%); }
+.form-card h1 { text-align: center; margin: 0 0 8px; font-size: 32px; letter-spacing: -0.055em; }
+.form-card > p { text-align: center; color: var(--rd-muted); margin: 0 0 22px; }
+.full { width: 100%; margin: 10px 0 18px; }
+.switch-text { color: var(--rd-muted); text-align: center !important; margin: 0 !important; }
+.switch-text a { color: var(--rd-primary); font-weight: 800; }
