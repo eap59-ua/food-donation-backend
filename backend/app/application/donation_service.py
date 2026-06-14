@@ -30,7 +30,7 @@ class DonationService:
             description=dto.description,
             quantity=dto.quantity,
             location_address=dto.location_address,
-            expiration_date=dto.expiration_date,
+            expiration_date=dto.expiration_date.replace(tzinfo=None) if dto.expiration_date else None,
             status=DonationStatusDB.AVAILABLE,
         )
         self.db.add(donation)
@@ -79,7 +79,7 @@ class DonationService:
         if dto.location_address is not None:
             donation.location_address = dto.location_address
         if dto.expiration_date is not None:
-            donation.expiration_date = dto.expiration_date
+            donation.expiration_date = dto.expiration_date.replace(tzinfo=None)
         donation.updated_at = datetime.utcnow()
 
         await self.db.commit()
