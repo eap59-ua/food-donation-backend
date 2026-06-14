@@ -1,119 +1,105 @@
-ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+// ─── Menu header ──────────────────────────────────────────────────────────
+.menu-header {
+  padding: 48px 20px 20px;
+  border-bottom: 1px solid var(--rd-border);
 }
 
-ion-menu.md ion-content {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 20px;
-  --padding-bottom: 20px;
-}
-
-ion-menu.md ion-list {
-  padding: 20px 0;
-}
-
-ion-menu.md ion-note {
-  margin-bottom: 30px;
-}
-
-ion-menu.md ion-list-header,
-ion-menu.md ion-note {
-  padding-left: 10px;
-}
-
-ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-background-color-step-150, #d7d8da);
-}
-
-ion-menu.md ion-list#inbox-list ion-list-header {
-  font-size: 22px;
-  font-weight: 600;
-
-  min-height: 20px;
-}
-
-ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
-
-  margin-bottom: 18px;
-
-  color: #757575;
-
-  min-height: 26px;
-}
-
-ion-menu.md ion-item {
-  --padding-start: 10px;
-  --padding-end: 10px;
-  border-radius: 4px;
-}
-
-ion-menu.md ion-item.selected {
-  --background: rgba(var(--ion-color-primary-rgb), 0.14);
-}
-
-ion-menu.md ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
-}
-
-ion-menu.md ion-item ion-icon {
-  color: #616e7e;
-}
-
-ion-menu.md ion-item ion-label {
-  font-weight: 500;
-}
-
-ion-menu.ios ion-content {
-  --padding-bottom: 20px;
-}
-
-ion-menu.ios ion-list {
-  padding: 20px 0 0 0;
-}
-
-ion-menu.ios ion-note {
-  line-height: 24px;
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 20px;
+
+  .menu-logo-icon {
+    font-size: 24px;
+    color: var(--rd-primary);
+  }
+  .menu-logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rd-foreground);
+    letter-spacing: -.3px;
+  }
 }
 
-ion-menu.ios ion-item {
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --min-height: 50px;
+.menu-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .menu-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--rd-primary);
+    color: #fdfaf7;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .menu-user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--rd-foreground);
+    margin: 0;
+  }
+  .menu-user-role {
+    font-size: 11px;
+    color: var(--rd-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 2px 0 0;
+  }
 }
 
-ion-menu.ios ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
+// ─── Nav list ─────────────────────────────────────────────────────────────
+.menu-list {
+  padding: 16px 12px;
 }
 
-ion-menu.ios ion-item ion-icon {
-  font-size: 24px;
-  color: #73849a;
+.menu-item {
+  --background: transparent;
+  --background-activated: var(--rd-primary-light);
+  --border-radius: 10px;
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  --color: var(--rd-foreground);
+  margin-bottom: 4px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: background .15s;
+
+  &.menu-item-active {
+    --background: var(--rd-primary-light);
+    --color: var(--rd-primary);
+    font-weight: 600;
+
+    .menu-icon {
+      color: var(--rd-primary);
+    }
+  }
 }
 
-ion-menu.ios ion-list#labels-list ion-list-header {
-  margin-bottom: 8px;
+.menu-icon {
+  font-size: 20px;
+  color: var(--rd-muted-fg);
 }
 
-ion-menu.ios ion-list-header,
-ion-menu.ios ion-note {
-  padding-left: 16px;
-  padding-right: 16px;
-}
+// ─── Footer logout ─────────────────────────────────────────────────────────
+.menu-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  border-top: 1px solid var(--rd-border);
 
-ion-menu.ios ion-note {
-  margin-bottom: 8px;
-}
-
-ion-note {
-  display: inline-block;
-  font-size: 16px;
-
-  color: var(--ion-color-medium-shade);
-}
-
-ion-item.selected {
-  --color: var(--ion-color-primary);
+  .logout-item {
+    --color: var(--rd-destructive);
+    .menu-icon { color: var(--rd-destructive); }
+  }
 }

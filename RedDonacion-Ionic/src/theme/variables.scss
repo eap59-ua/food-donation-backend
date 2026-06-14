@@ -1,2 +1,132 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// RedDonación – Ionic Theme
+// Paleta extraída del frontend React (index.css + tailwind.config.js)
+// Primary  → Terracotta  hsl(24, 62%, 43%)
+// Secondary → Green       hsl(83, 46%, 51%)
+
+// ─── Ionic Color Map ───────────────────────────────────────────────────────
+:root {
+  /** primary – Terracotta **/
+  --ion-color-primary:         #b8602a;
+  --ion-color-primary-rgb:     184, 96, 42;
+  --ion-color-primary-contrast: #fdfaf7;
+  --ion-color-primary-contrast-rgb: 253, 250, 247;
+  --ion-color-primary-shade:   #a35525;
+  --ion-color-primary-tint:    #bf7040;
+
+  /** secondary – Olive Green **/
+  --ion-color-secondary:       #7aab46;
+  --ion-color-secondary-rgb:   122, 171, 70;
+  --ion-color-secondary-contrast: #2a3825;
+  --ion-color-secondary-contrast-rgb: 42, 56, 37;
+  --ion-color-secondary-shade:  #6b963e;
+  --ion-color-secondary-tint:   #87b359;
+
+  /** tertiary **/
+  --ion-color-tertiary:        #e8c49a;
+  --ion-color-tertiary-rgb:    232, 196, 154;
+  --ion-color-tertiary-contrast: #3a2a1a;
+  --ion-color-tertiary-contrast-rgb: 58, 42, 26;
+  --ion-color-tertiary-shade:  #ccac88;
+  --ion-color-tertiary-tint:   #eacaa4;
+
+  /** success **/
+  --ion-color-success:         #2dd36f;
+  --ion-color-success-rgb:     45, 211, 111;
+  --ion-color-success-contrast: #fff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade:   #28ba62;
+  --ion-color-success-tint:    #42d77d;
+
+  /** warning **/
+  --ion-color-warning:         #ffc409;
+  --ion-color-warning-rgb:     255, 196, 9;
+  --ion-color-warning-contrast: #000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade:   #e0ac08;
+  --ion-color-warning-tint:    #ffca22;
+
+  /** danger **/
+  --ion-color-danger:          #eb445a;
+  --ion-color-danger-rgb:      235, 68, 90;
+  --ion-color-danger-contrast: #fff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade:    #cf3c4f;
+  --ion-color-danger-tint:     #ed576b;
+
+  /** dark **/
+  --ion-color-dark:            #222428;
+  --ion-color-dark-rgb:        34, 36, 40;
+  --ion-color-dark-contrast:   #fff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade:      #1e2023;
+  --ion-color-dark-tint:       #383a3e;
+
+  /** medium **/
+  --ion-color-medium:          #92949c;
+  --ion-color-medium-rgb:      146, 148, 156;
+  --ion-color-medium-contrast: #fff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade:    #808289;
+  --ion-color-medium-tint:     #9d9fa6;
+
+  /** light **/
+  --ion-color-light:           #f4f5f8;
+  --ion-color-light-rgb:       244, 245, 248;
+  --ion-color-light-contrast:  #000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade:     #d7d8da;
+  --ion-color-light-tint:      #f5f6f9;
+
+  // ─── App tokens (light mode) ─────────────────────────────────────────────
+  --rd-bg:             #fdfaf7;        // Warm White (frontend --background)
+  --rd-foreground:     #2e2a3b;        // Navy
+  --rd-primary:        #b8602a;        // Terracotta
+  --rd-primary-light:  #f5e8df;
+  --rd-secondary:      #7aab46;        // Green
+  --rd-secondary-light:#eaf2e0;
+  --rd-muted:          #c4a58c;
+  --rd-muted-fg:       #706c7a;
+  --rd-border:         #e2ddd8;
+  --rd-card:           #ffffff;
+  --rd-destructive:    #dc2626;
+
+  // Ionic background override
+  --ion-background-color:       var(--rd-bg);
+  --ion-background-color-rgb:   253, 250, 247;
+  --ion-text-color:             var(--rd-foreground);
+  --ion-text-color-rgb:         46, 42, 59;
+  --ion-border-color:           var(--rd-border);
+  --ion-item-background:        var(--rd-card);
+  --ion-toolbar-background:     var(--rd-bg);
+  --ion-toolbar-color:          var(--rd-foreground);
+  --ion-tab-bar-background:     var(--rd-card);
+  --ion-card-background:        var(--rd-card);
+}
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rd-bg:           #121212;
+    --rd-foreground:   #e8dfd4;
+    --rd-primary:      #b8602a;
+    --rd-primary-light:#3a2015;
+    --rd-secondary:    #7aab46;
+    --rd-secondary-light:#1d2d0f;
+    --rd-muted:        #333;
+    --rd-muted-fg:     #7d7878;
+    --rd-border:       #2e2e2e;
+    --rd-card:         #1c1c1e;
+    --rd-destructive:  #ef4444;
+
+    --ion-background-color:     var(--rd-bg);
+    --ion-background-color-rgb: 18, 18, 18;
+    --ion-text-color:           var(--rd-foreground);
+    --ion-text-color-rgb:       232, 223, 212;
+    --ion-border-color:         var(--rd-border);
+    --ion-item-background:      var(--rd-card);
+    --ion-toolbar-background:   var(--rd-card);
+    --ion-toolbar-color:        var(--rd-foreground);
+    --ion-tab-bar-background:   var(--rd-card);
+    --ion-card-background:      var(--rd-card);
+  }
+}

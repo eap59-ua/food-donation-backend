@@ -1,0 +1,77 @@
+// Shared with login - same styles
+:host { display: contents; }
+
+.login-content { --background: var(--rd-bg); }
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+
+  .auth-brand-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--rd-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ion-icon { font-size: 22px; color: #fdfaf7; }
+  }
+  .auth-brand-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--rd-foreground);
+    letter-spacing: -.5px;
+    margin: 0;
+  }
+}
+
+.auth-card { width: 100%; padding: 28px 24px 24px; }
+
+.auth-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--rd-foreground);
+  margin: 0 0 4px;
+}
+.auth-subtitle {
+  font-size: 14px;
+  color: var(--rd-muted-fg);
+  margin: 0 0 24px;
+}
+
+.form-group { margin-bottom: 16px; }
+
+.rd-select {
+  --placeholder-color: var(--rd-muted-fg);
+}
+
+.submit-btn { margin-top: 8px; height: 48px; font-size: 15px; }
+
+.auth-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--rd-muted-fg);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.auth-link {
+  color: var(--rd-primary);
+  font-weight: 600;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}

@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mis Solicitudes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="requests-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="requests-container">
+
+    <!-- Loading -->
+    <ng-container *ngIf="isLoading">
+      <div *ngFor="let i of [1,2,3]">
+        <ion-skeleton-text animated style="height: 100px; border-radius: 14px; margin-bottom: 12px;"></ion-skeleton-text>
+      </div>
+    </ng-container>
+
+    <!-- Empty state -->
+    <div *ngIf="!isLoading && requests.length === 0" class="rd-empty">
+      <ion-icon name="hand-right-outline"></ion-icon>
+      <h4>Sin solicitudes</h4>
+      <p>Aún no has solicitado ninguna donación.</p>
+      <ion-button fill="clear" color="primary" routerLink="/donations-list">
+        Ver donaciones disponibles
+      </ion-button>
+    </div>
+
+    <!-- Request cards -->
+    <div
+      *ngFor="let req of requests"
+      class="request-card rd-card"
+      (click)="goToDonation(req.donation_id)"
+    >
+      <div class="request-header">
+        <p class="request-donation-title">
+          Donación #{{ req.donation_id.substring(0, 8) }}
+        </p>
+        <span class="rd-badge {{ getStatusClass(req.status) }}">
+          {{ getStatusLabel(req.status) }}
+        </span>
+      </div>
+
+      <p class="request-message-preview">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        "{{ req.message }}"
+      </p>
+
+      <div class="request-meta">
+        <ion-icon name="time-outline"></ion-icon>
+        Enviada el {{ formatDate(req.created_at) }}
+      </div>
+
+      <!-- Status indicator bar -->
+      <div class="status-bar">
+        <div class="status-step active">
+          <div class="step-dot done"><ion-icon name="checkmark-outline"></ion-icon></div>
+          <span>Enviada</span>
+        </div>
+        <div class="status-line" [class.done]="req.status !== 'PENDING'"></div>
+        <div class="status-step" [class.active]="req.status !== 'PENDING'">
+          <div class="step-dot" [class.done]="req.status === 'APPROVED'" [class.rejected]="req.status === 'REJECTED'">
+            <ion-icon [name]="req.status === 'REJECTED' ? 'close-outline' : 'checkmark-outline'"></ion-icon>
+          </div>
+          <span>Revisada</span>
+        </div>
+        <div class="status-line" [class.done]="req.status === 'APPROVED'"></div>
+        <div class="status-step" [class.active]="req.status === 'APPROVED'">
+          <div class="step-dot" [class.done]="req.status === 'APPROVED'">
+            <ion-icon name="gift-outline"></ion-icon>
+          </div>
+          <span>Aprobada</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

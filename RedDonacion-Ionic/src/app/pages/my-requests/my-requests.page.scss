@@ -1,0 +1,123 @@
+.requests-content { --background: var(--rd-bg); }
+
+.requests-container {
+  padding: 16px 16px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.request-card {
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+
+  &:active {
+    transform: scale(.98);
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  }
+}
+
+.request-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.request-donation-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--rd-foreground);
+  margin: 0;
+  flex: 1;
+}
+
+.request-message-preview {
+  font-size: 13px;
+  color: var(--rd-muted-fg);
+  margin: 0 0 6px;
+  font-style: italic;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  ion-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+}
+
+.request-meta {
+  font-size: 12px;
+  color: var(--rd-muted-fg);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 14px;
+
+  ion-icon { font-size: 13px; }
+}
+
+// Status progress bar
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding-top: 4px;
+}
+
+.status-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    font-size: 10px;
+    color: var(--rd-muted-fg);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &.active span { color: var(--rd-foreground); font-weight: 600; }
+}
+
+.step-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--rd-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--rd-border);
+
+  ion-icon { font-size: 13px; color: var(--rd-muted-fg); }
+
+  &.done {
+    background: var(--rd-secondary);
+    border-color: var(--rd-secondary);
+    ion-icon { color: #fff; }
+  }
+  &.rejected {
+    background: var(--rd-destructive);
+    border-color: var(--rd-destructive);
+    ion-icon { color: #fff; }
+  }
+}
+
+.status-line {
+  flex: 1;
+  height: 2px;
+  background: var(--rd-border);
+  margin: 0 4px;
+  margin-bottom: 14px; // align with dots
+
+  &.done { background: var(--rd-secondary); }
+}

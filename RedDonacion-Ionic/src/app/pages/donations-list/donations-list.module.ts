@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DonationsListPageRoutingModule } from './donations-list-routing.module';
-
 import { DonationsListPage } from './donations-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    RouterModule,
     IonicModule,
-    DonationsListPageRoutingModule
+    DonationsListPageRoutingModule,
   ],
-  declarations: [DonationsListPage]
+  declarations: [DonationsListPage],
 })
 export class DonationsListPageModule {}

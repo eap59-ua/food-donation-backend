@@ -1,12 +1,5 @@
 /*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * App Global CSS – RedDonación Ionic
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -18,20 +11,210 @@
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+/* Dark mode */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* Google Fonts – Inter (matching frontend) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+// ─── Global typography & base ─────────────────────────────────────────────
+* {
+  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+ion-content {
+  --background: var(--rd-bg);
+}
+
+ion-toolbar {
+  --background: var(--rd-bg);
+  --color: var(--rd-foreground);
+  --border-color: var(--rd-border);
+}
+
+ion-header ion-toolbar:first-of-type {
+  padding-top: env(safe-area-inset-top);
+}
+
+// ─── Shared page helpers ──────────────────────────────────────────────────
+.rd-page-content {
+  padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+// ─── Card ────────────────────────────────────────────────────────────────
+.rd-card {
+  background: var(--rd-card);
+  border: 1px solid var(--rd-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────
+ion-button.rd-btn-primary {
+  --background: var(--rd-primary);
+  --background-activated: #a35525;
+  --border-radius: 10px;
+  --color: #fdfaf7;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+ion-button.rd-btn-secondary {
+  --background: var(--rd-secondary-light);
+  --background-activated: #d4eabc;
+  --border-radius: 10px;
+  --color: var(--rd-secondary);
+  --border-color: var(--rd-secondary);
+  font-weight: 600;
+}
+
+// ─── Input fields ────────────────────────────────────────────────────────
+.rd-input {
+  --background: var(--rd-card);
+  --border-color: var(--rd-border);
+  --border-radius: 10px;
+  --color: var(--rd-foreground);
+  --placeholder-color: var(--rd-muted-fg);
+  --padding-start: 14px;
+  --padding-end: 14px;
+  border: 1px solid var(--rd-border);
+  border-radius: 10px;
+  margin-bottom: 4px;
+
+  &.ion-touched.ion-invalid {
+    border-color: var(--rd-destructive);
+  }
+}
+
+// ─── Form label ──────────────────────────────────────────────────────────
+.rd-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rd-foreground);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.rd-error {
+  font-size: 11px;
+  color: var(--rd-destructive);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+// ─── Badge ───────────────────────────────────────────────────────────────
+.rd-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+
+  &.pending  { background: #fef3c7; color: #92400e; }
+  &.accepted { background: var(--rd-secondary-light); color: #386018; }
+  &.rejected { background: #fee2e2; color: #991b1b; }
+  &.completed{ background: #dbeafe; color: #1e40af; }
+}
+
+// ─── Stat card ───────────────────────────────────────────────────────────
+.rd-stat-card {
+  background: var(--rd-card);
+  border: 1px solid var(--rd-border);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .rd-stat-icon {
+    font-size: 26px;
+    display: block;
+  }
+  .rd-stat-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--rd-foreground);
+    line-height: 1;
+  }
+  .rd-stat-label {
+    font-size: 12px;
+    color: var(--rd-muted-fg);
+    font-weight: 500;
+  }
+}
+
+// ─── Donation list item ───────────────────────────────────────────────────
+.rd-donation-item {
+  background: var(--rd-card);
+  border: 1px solid var(--rd-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s;
+
+  &:active {
+    transform: scale(.98);
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  }
+
+  .rd-donation-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rd-foreground);
+    margin-bottom: 4px;
+  }
+  .rd-donation-meta {
+    font-size: 12px;
+    color: var(--rd-muted-fg);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+// ─── Alert banners ───────────────────────────────────────────────────────
+.rd-alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+// ─── Empty state ─────────────────────────────────────────────────────────
+.rd-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--rd-muted-fg);
+
+  ion-icon {
+    font-size: 48px;
+    color: var(--rd-muted);
+    margin-bottom: 12px;
+  }
+  p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+}

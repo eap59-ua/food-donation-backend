@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
+import { CreateDonationPageRoutingModule } from './create-donation-routing.module';
+import { CreateDonationPage } from './create-donation.page';
 
 @NgModule({
   imports: [
@@ -14,8 +13,8 @@ import { LoginPage } from './login.page';
     ReactiveFormsModule,
     RouterModule,
     IonicModule,
-    LoginPageRoutingModule,
+    CreateDonationPageRoutingModule,
   ],
-  declarations: [LoginPage],
+  declarations: [CreateDonationPage],
 })
-export class LoginPageModule {}
+export class CreateDonationPageModule {}

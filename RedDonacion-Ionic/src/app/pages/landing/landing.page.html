@@ -1,0 +1,143 @@
+<ion-content [fullscreen]="true" class="landing-content" [scrollEvents]="true">
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- HEADER / NAVBAR                        -->
+  <!-- ══════════════════════════════════════ -->
+  <nav class="landing-nav">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <ion-icon name="leaf"></ion-icon>
+      </div>
+      <span class="nav-brand-name">RedDonación</span>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn-ghost" (click)="goToLogin()">Acceder</button>
+      <button class="nav-btn-primary" (click)="goToRegister()">Registrarse</button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- HERO SECTION                           -->
+  <!-- ══════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-bg-glow"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <ion-icon name="leaf-outline"></ion-icon>
+        Plataforma de donación de alimentos
+      </div>
+
+      <h1 class="hero-title">
+        Rescatar comida.<br>
+        <span class="hero-title-accent">Nutrir comunidades.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Conectamos rápidamente excedentes alimentarios de empresas con las
+        organizaciones que más lo necesitan, reduciendo el desperdicio y
+        multiplicando el impacto social.
+      </p>
+
+      <div class="hero-ctas">
+        <button class="cta-primary" (click)="goToRegister()">
+          Quiero Donar
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+        <button class="cta-secondary" (click)="goToRegister()">
+          Soy una Organización
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating decoration cards -->
+    <div class="hero-decoration">
+      <div class="deco-card deco-card-1">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <span>Donación publicada</span>
+      </div>
+      <div class="deco-card deco-card-2">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span>¡Solicitud aceptada!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- STATS SECTION                          -->
+  <!-- ══════════════════════════════════════ -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats" class="stat-item">
+        <div class="stat-icon-wrap" [ngClass]="'stat-bg-' + stat.color">
+          <ion-icon [name]="stat.icon"></ion-icon>
+        </div>
+        <h3 class="stat-value">{{ stat.value }}</h3>
+        <p class="stat-label">{{ stat.label }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- CÓMO FUNCIONA                          -->
+  <!-- ══════════════════════════════════════ -->
+  <section class="how-section">
+    <div class="section-intro">
+      <h2 class="section-title">Un proceso simple y transparente</h2>
+      <p class="section-subtitle">
+        Nuestra plataforma automatiza la logística solidaria para que la ayuda
+        llegue donde se necesita, en tiempo real.
+      </p>
+    </div>
+
+    <div class="steps-list">
+      <div *ngFor="let step of steps; let i = index" class="step-card">
+        <div class="step-icon-wrap" [ngClass]="'step-bg-' + step.bg">
+          <ion-icon [name]="step.icon"></ion-icon>
+        </div>
+        <div class="step-body">
+          <div class="step-number">Paso {{ step.number }}</div>
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p class="step-desc">{{ step.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- CTA BANNER                             -->
+  <!-- ══════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="cta-banner">
+      <div class="cta-banner-glow"></div>
+      <ion-icon name="heart" class="cta-banner-icon"></ion-icon>
+      <h2 class="cta-banner-title">¿Listo para generar impacto?</h2>
+      <p class="cta-banner-sub">
+        Únete a la red de empresas y organizaciones que ya están cambiando el mundo.
+      </p>
+      <div class="cta-banner-btns">
+        <button class="cta-primary" (click)="goToRegister()">
+          Crear cuenta gratis
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+        <button class="cta-ghost" (click)="goToLogin()">
+          Ya tengo cuenta
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- FOOTER                                 -->
+  <!-- ══════════════════════════════════════ -->
+  <footer class="landing-footer">
+    <div class="footer-brand">
+      <ion-icon name="leaf"></ion-icon>
+      <span>RedDonación</span>
+    </div>
+    <p class="footer-copy">
+      © {{ year }} Red de Donación de Alimentos. Todos los derechos reservados.
+    </p>
+  </footer>
+
+</ion-content>

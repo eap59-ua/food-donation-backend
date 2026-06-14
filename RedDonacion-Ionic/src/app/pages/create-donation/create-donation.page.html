@@ -1,0 +1,147 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard" text="Cancelar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nueva Donación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="create-content">
+  <div class="create-container">
+
+    <!-- Hero hint -->
+    <div class="create-hero">
+      <div class="create-hero-icon">
+        <ion-icon name="restaurant-outline"></ion-icon>
+      </div>
+      <div>
+        <h2 class="create-hero-title">Publica tu excedente</h2>
+        <p class="create-hero-sub">Los alimentos llegarán a quienes los necesitan.</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- Title -->
+      <div class="form-group">
+        <label class="rd-label">Título de la donación *</label>
+        <ion-input
+          formControlName="title"
+          type="text"
+          placeholder="Ej: Sándwiches sobrantes del día"
+          class="rd-input"
+          fill="outline"
+          [class.ion-invalid]="titleCtrl.invalid && titleCtrl.touched"
+          [class.ion-touched]="titleCtrl.touched"
+        ></ion-input>
+        <p class="rd-error" *ngIf="titleCtrl.invalid && titleCtrl.touched">
+          <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+          <span *ngIf="titleCtrl.errors?.['required']">El título es obligatorio</span>
+          <span *ngIf="titleCtrl.errors?.['minlength']">Mínimo 3 caracteres</span>
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label class="rd-label">Descripción *</label>
+        <ion-textarea
+          formControlName="description"
+          placeholder="Describe el estado y tipo de los alimentos..."
+          class="rd-input"
+          fill="outline"
+          [autoGrow]="true"
+          [rows]="3"
+          [class.ion-invalid]="descCtrl.invalid && descCtrl.touched"
+          [class.ion-touched]="descCtrl.touched"
+        ></ion-textarea>
+        <p class="rd-error" *ngIf="descCtrl.invalid && descCtrl.touched">
+          <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+          <span *ngIf="descCtrl.errors?.['required']">La descripción es obligatoria</span>
+          <span *ngIf="descCtrl.errors?.['minlength']">Mínimo 10 caracteres</span>
+        </p>
+      </div>
+
+      <!-- Quantity + Unit row -->
+      <div class="quantity-row">
+        <div class="form-group quantity-field">
+          <label class="rd-label">Cantidad *</label>
+          <ion-input
+            formControlName="quantity"
+            type="number"
+            placeholder="0"
+            class="rd-input"
+            fill="outline"
+            min="1"
+            [class.ion-invalid]="quantityCtrl.invalid && quantityCtrl.touched"
+            [class.ion-touched]="quantityCtrl.touched"
+          ></ion-input>
+          <p class="rd-error" *ngIf="quantityCtrl.invalid && quantityCtrl.touched">
+            <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+            Cantidad requerida
+          </p>
+        </div>
+
+        <div class="form-group unit-field">
+          <label class="rd-label">Unidad *</label>
+          <ion-select
+            formControlName="unit"
+            class="rd-input rd-select"
+            fill="outline"
+            interface="action-sheet"
+          >
+            <ion-select-option *ngFor="let u of units" [value]="u">{{ u }}</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="form-group">
+        <label class="rd-label">Ubicación (Dirección) *</label>
+        <ion-input
+          formControlName="location_address"
+          type="text"
+          placeholder="Ej: Calle Principal 123"
+          class="rd-input"
+          fill="outline"
+          [class.ion-invalid]="locationCtrl.invalid && locationCtrl.touched"
+          [class.ion-touched]="locationCtrl.touched"
+        ></ion-input>
+        <p class="rd-error" *ngIf="locationCtrl.invalid && locationCtrl.touched">
+          <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+          La ubicación es obligatoria
+        </p>
+      </div>
+
+      <!-- Expiry date -->
+      <div class="form-group">
+        <label class="rd-label">Fecha de caducidad</label>
+        <ion-input
+          formControlName="expiry_date"
+          type="date"
+          class="rd-input"
+          fill="outline"
+          [min]="getTodayString()"
+          [class.ion-invalid]="expiryCtrl.invalid && expiryCtrl.touched"
+          [class.ion-touched]="expiryCtrl.touched"
+        ></ion-input>
+        <p class="rd-error" *ngIf="expiryCtrl.invalid && expiryCtrl.touched">
+          <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+          La fecha es obligatoria
+        </p>
+      </div>
+
+      <!-- Submit -->
+      <ion-button
+        type="submit"
+        expand="block"
+        class="rd-btn-primary submit-btn"
+        [disabled]="isLoading"
+      >
+        <ion-spinner name="crescent" *ngIf="isLoading" slot="start"></ion-spinner>
+        <ion-icon name="cloud-upload-outline" slot="start" *ngIf="!isLoading"></ion-icon>
+        <span>{{ isLoading ? 'Publicando...' : 'Publicar Donación' }}</span>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

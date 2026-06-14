@@ -1,13 +1,133 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">
+      <div class="title-brand">
+        <ion-icon name="leaf" class="brand-leaf"></ion-icon>
+        RedDonación
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="loadData()">
+        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(); $event.target.complete()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="dashboard-container">
+
+    <!-- Greeting -->
+    <div class="greeting-section">
+      <div class="greeting-text">
+        <p class="greeting-small">{{ getGreeting() }},</p>
+        <h2 class="greeting-name">{{ currentUser?.name ?? 'Usuario' }} <ion-icon name="hand-left-outline" class="greeting-wave"></ion-icon></h2>
+        <p class="greeting-role">
+          <ion-badge class="role-badge" [color]="currentUser?.role === 'DONANTE' ? 'primary' : currentUser?.role === 'ONG' ? 'secondary' : 'tertiary'">
+            {{ currentUser?.role }}
+          </ion-badge>
+        </p>
+      </div>
+    </div>
+
+    <!-- Loading skeleton -->
+    <ng-container *ngIf="isLoading">
+      <div class="stats-grid">
+        <ion-skeleton-text animated class="skeleton-stat"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-stat"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-stat"></ion-skeleton-text>
+      </div>
+    </ng-container>
+
+    <!-- Stats -->
+    <div class="stats-grid" *ngIf="!isLoading">
+      <div class="rd-stat-card">
+        <ion-icon name="restaurant-outline" class="rd-stat-icon stat-icon-primary"></ion-icon>
+        <span class="rd-stat-value">{{ stats.total }}</span>
+        <span class="rd-stat-label">Total Donaciones</span>
+      </div>
+      <div class="rd-stat-card">
+        <ion-icon name="time-outline" class="rd-stat-icon stat-icon-warning"></ion-icon>
+        <span class="rd-stat-value">{{ stats.pending }}</span>
+        <span class="rd-stat-label">Pendientes</span>
+      </div>
+      <div class="rd-stat-card">
+        <ion-icon name="checkmark-circle-outline" class="rd-stat-icon stat-icon-success"></ion-icon>
+        <span class="rd-stat-value">{{ stats.completed }}</span>
+        <span class="rd-stat-label">Completadas</span>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="section-header">
+      <h3 class="section-title">Acciones rápidas</h3>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-action-btn" (click)="goToList()">
+        <div class="qa-icon qa-icon-primary">
+          <ion-icon name="restaurant-outline"></ion-icon>
+        </div>
+        <span>Ver Donaciones</span>
+      </button>
+      <button class="quick-action-btn" (click)="goToCreate()" *ngIf="canDonate()">
+        <div class="qa-icon qa-icon-secondary">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </div>
+        <span>Nueva Donación</span>
+      </button>
+      <button class="quick-action-btn" [routerLink]="['/my-requests']">
+        <div class="qa-icon qa-icon-tertiary">
+          <ion-icon name="hand-right-outline"></ion-icon>
+        </div>
+        <span>Mis Solicitudes</span>
+      </button>
+    </div>
+
+    <!-- Recent donations -->
+    <div class="section-header">
+      <h3 class="section-title">Donaciones recientes</h3>
+      <button class="see-all-btn" (click)="goToList()">Ver todas</button>
+    </div>
+
+    <ng-container *ngIf="isLoading">
+      <div *ngFor="let i of [1,2,3]" class="skeleton-item">
+        <ion-skeleton-text animated style="height: 80px; border-radius: 14px;"></ion-skeleton-text>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!isLoading && recentDonations.length === 0" class="rd-empty">
+      <ion-icon name="leaf-outline"></ion-icon>
+      <h4>Sin donaciones aún</h4>
+      <p>Sé el primero en publicar una donación.</p>
+    </div>
+
+    <div
+      *ngFor="let donation of recentDonations"
+      class="rd-donation-item"
+      (click)="goToDonation(donation.id)"
+    >
+      <div class="donation-item-top">
+        <p class="rd-donation-title">{{ donation.title }}</p>
+        <span class="rd-badge {{ getStatusClass(donation.status) }}">
+          {{ getStatusLabel(donation.status) }}
+        </span>
+      </div>
+      <div class="rd-donation-meta">
+        <ion-icon name="cube-outline" style="font-size:13px"></ion-icon>
+        {{ donation.quantity }}
+        <span class="meta-separator">·</span>
+        <ion-icon name="calendar-outline" style="font-size:13px"></ion-icon>
+        <span *ngIf="donation.expiration_date">Cad. {{ formatDate(donation.expiration_date) }}</span>
+        <span *ngIf="!donation.expiration_date">Sin fecha</span>
+      </div>
+    </div>
+
+  </div>
 </ion-content>

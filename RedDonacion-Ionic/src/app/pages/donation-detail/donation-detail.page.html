@@ -1,13 +1,168 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>donation-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/donations-list" text="Volver"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle</ion-title>
+    <ion-buttons slot="end" *ngIf="isOwner() && donation">
+      <ion-button fill="clear" (click)="deleteDonation()">
+        <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">donation-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="detail-content">
+
+  <!-- Loading skeleton -->
+  <ng-container *ngIf="isLoading">
+    <div class="detail-container">
+      <ion-skeleton-text animated style="height: 28px; border-radius: 8px; margin-bottom: 8px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="height: 16px; border-radius: 8px; margin-bottom: 24px; width: 60%;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="height: 100px; border-radius: 14px; margin-bottom: 12px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="height: 80px; border-radius: 14px;"></ion-skeleton-text>
+    </div>
+  </ng-container>
+
+  <div class="detail-container" *ngIf="!isLoading && donation">
+
+    <!-- Title + status -->
+    <div class="detail-header">
+      <h1 class="detail-title">{{ donation.title }}</h1>
+      <span class="rd-badge {{ getStatusClass(donation.status) }}">
+        {{ getStatusLabel(donation.status) }}
+      </span>
+    </div>
+
+    <!-- Description card -->
+    <div class="rd-card info-card">
+      <h3 class="info-section-title">Descripción</h3>
+      <p class="detail-desc">{{ donation.description }}</p>
+    </div>
+
+    <!-- Details card -->
+    <div class="rd-card info-card">
+      <h3 class="info-section-title">Detalles</h3>
+      <div class="detail-rows">
+        <div class="detail-row">
+          <div class="detail-row-icon">
+            <ion-icon name="cube-outline"></ion-icon>
+          </div>
+          <div class="detail-row-content">
+            <span class="detail-row-label">Cantidad</span>
+            <span class="detail-row-value">{{ donation.quantity }}</span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <div class="detail-row-content">
+            <span class="detail-row-label">Fecha de caducidad</span>
+            <span class="detail-row-value">{{ donation.expiration_date ? formatDate(donation.expiration_date) : 'Sin fecha' }}</span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div class="detail-row-content">
+            <span class="detail-row-label">ID Donante</span>
+            <span class="detail-row-value">{{ donation.donor_id.substring(0,8) }}</span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-icon">
+            <ion-icon name="time-outline"></ion-icon>
+          </div>
+          <div class="detail-row-content">
+            <span class="detail-row-label">Publicado</span>
+            <span class="detail-row-value">{{ formatDate(donation.created_at) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Receptor actions -->
+    <div class="action-section" *ngIf="isReceptorOrOng() && donation.status === 'AVAILABLE'">
+      <ion-button
+        expand="block"
+        class="rd-btn-primary"
+        [disabled]="hasRequested || isRequesting"
+        (click)="requestDonation()"
+      >
+        <ion-spinner name="crescent" *ngIf="isRequesting" slot="start"></ion-spinner>
+        <ion-icon name="hand-right-outline" slot="start" *ngIf="!isRequesting"></ion-icon>
+        <span>{{ hasRequested ? 'Solicitud enviada' : 'Solicitar esta donación' }}</span>
+      </ion-button>
+    </div>
+
+    <!-- Donor actions -->
+    <div class="action-section" *ngIf="isOwner() && donation.status !== 'COMPLETED'">
+      <ion-button
+        expand="block"
+        class="rd-btn-secondary"
+        (click)="markCompleted()"
+      >
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        Marcar como Completada
+      </ion-button>
+    </div>
+
+    <!-- Requests management (Donor view) -->
+    <div *ngIf="isOwner() && requests.length > 0">
+      <div class="section-header-detail">
+        <h3 class="section-title-detail">Solicitudes recibidas</h3>
+        <ion-badge color="primary">{{ requests.length }}</ion-badge>
+      </div>
+
+      <div *ngFor="let req of requests" class="request-card rd-card">
+        <div class="request-top">
+          <div class="request-avatar">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div class="request-info">
+            <p class="request-name">ID: {{ req.requester_id.substring(0,8) }}</p>
+            <span class="rd-badge {{ req.status.toLowerCase() }}">
+              {{ getStatusLabel(req.status) }}
+            </span>
+          </div>
+        </div>
+        <p class="request-message">{{ req.message }}</p>
+
+        <div class="request-actions" *ngIf="req.status === 'PENDING'">
+          <ion-button
+            size="small"
+            color="success"
+            fill="outline"
+            (click)="updateRequestStatus(req.id, 'APPROVED')"
+          >
+            <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+            Aceptar
+          </ion-button>
+          <ion-button
+            size="small"
+            color="danger"
+            fill="outline"
+            (click)="updateRequestStatus(req.id, 'REJECTED')"
+          >
+            <ion-icon name="close-outline" slot="start"></ion-icon>
+            Rechazar
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Not found -->
+  <div *ngIf="!isLoading && !donation" class="rd-empty">
+    <ion-icon name="leaf-outline"></ion-icon>
+    <h4>Donación no encontrada</h4>
+    <p>Es posible que haya sido eliminada.</p>
+    <ion-button fill="clear" color="primary" routerLink="/donations-list">
+      Ver lista
+    </ion-button>
+  </div>
+
 </ion-content>

@@ -1,0 +1,68 @@
+.create-content { --background: var(--rd-bg); }
+
+.create-container {
+  padding: 16px 16px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Hero
+.create-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--rd-primary-light);
+  border-radius: 16px;
+  margin-bottom: 24px;
+
+  .create-hero-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--rd-primary);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 26px;
+      color: #fdfaf7;
+    }
+  }
+  .create-hero-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rd-foreground);
+    margin: 0 0 2px;
+  }
+  .create-hero-sub {
+    font-size: 13px;
+    color: var(--rd-muted-fg);
+    margin: 0;
+  }
+}
+
+// Form
+.form-group { margin-bottom: 16px; }
+
+// Quantity + Unit row
+.quantity-row {
+  display: flex;
+  gap: 12px;
+
+  .quantity-field { flex: 1.5; }
+  .unit-field     { flex: 1; }
+}
+
+.rd-select {
+  --placeholder-color: var(--rd-muted-fg);
+}
+
+.submit-btn {
+  margin-top: 8px;
+  height: 52px;
+  font-size: 16px;
+  font-weight: 700;
+}

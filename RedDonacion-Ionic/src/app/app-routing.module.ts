@@ -1,42 +1,84 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { GuestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
-    pathMatch: 'full'
+    redirectTo: 'landing',
+    pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'landing',
+    loadChildren: () =>
+      import('./pages/landing/landing.module').then((m) => m.LandingPageModule),
+    canActivate: [GuestGuard],
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
+    canActivate: [GuestGuard],
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () =>
+      import('./pages/register/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
+    canActivate: [GuestGuard],
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardPageModule
+      ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'donations-list',
-    loadChildren: () => import('./pages/donations-list/donations-list.module').then( m => m.DonationsListPageModule)
+    loadChildren: () =>
+      import('./pages/donations-list/donations-list.module').then(
+        (m) => m.DonationsListPageModule
+      ),
+    canActivate: [AuthGuard],
   },
   {
-    path: 'donation-detail',
-    loadChildren: () => import('./pages/donation-detail/donation-detail.module').then( m => m.DonationDetailPageModule)
-  }
+    path: 'donation-detail/:id',
+    loadChildren: () =>
+      import('./pages/donation-detail/donation-detail.module').then(
+        (m) => m.DonationDetailPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'create-donation',
+    loadChildren: () =>
+      import('./pages/create-donation/create-donation.module').then(
+        (m) => m.CreateDonationPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-requests',
+    loadChildren: () =>
+      import('./pages/my-requests/my-requests.module').then(
+        (m) => m.MyRequestsPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: 'landing',
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

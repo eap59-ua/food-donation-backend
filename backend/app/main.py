@@ -29,7 +29,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten in production
+    allow_origin_regex=r"https?://localhost:\d+",  # Allows any localhost port during development
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,6 +39,16 @@ API_PREFIX = "/api/v1"
 app.include_router(auth_router, prefix=API_PREFIX)
 app.include_router(donation_router, prefix=API_PREFIX)
 app.include_router(request_router, prefix=API_PREFIX)
+
+
+@app.get("/", tags=["Root"])
+async def root():
+    return {
+        "message": "Bienvenido a la API de Red de Donación de Alimentos",
+        "documentation": "/docs",
+        "health": "/health",
+        "version": "1.0.0"
+    }
 
 
 @app.get("/health", tags=["Health"])

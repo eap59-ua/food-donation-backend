@@ -1,13 +1,132 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="login-content" [fullscreen]="true">
+  <div class="auth-container">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Brand header -->
+    <div class="auth-brand">
+      <div class="auth-brand-icon">
+        <ion-icon name="leaf"></ion-icon>
+      </div>
+      <h1 class="auth-brand-name">RedDonación</h1>
+    </div>
+
+    <!-- Card -->
+    <div class="rd-card auth-card">
+      <h2 class="auth-title">Crear Cuenta</h2>
+      <p class="auth-subtitle">Únete a la red y comienza a generar impacto social</p>
+
+      <!-- Error alert -->
+      <div class="rd-alert-error" *ngIf="errorMessage">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Name -->
+        <div class="form-group">
+          <label class="rd-label">Nombre / Organización</label>
+          <ion-input
+            formControlName="name"
+            type="text"
+            placeholder="Nombre de tu entidad"
+            class="rd-input"
+            fill="outline"
+            [class.ion-invalid]="nameCtrl.invalid && nameCtrl.touched"
+            [class.ion-touched]="nameCtrl.touched"
+          ></ion-input>
+          <p class="rd-error" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+            <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+            <span *ngIf="nameCtrl.errors?.['required']">El nombre es obligatorio</span>
+            <span *ngIf="nameCtrl.errors?.['minlength']">Mínimo 2 caracteres</span>
+          </p>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="rd-label">Correo electrónico</label>
+          <ion-input
+            formControlName="email"
+            type="email"
+            placeholder="tu@organizacion.org"
+            class="rd-input"
+            fill="outline"
+            [class.ion-invalid]="emailCtrl.invalid && emailCtrl.touched"
+            [class.ion-touched]="emailCtrl.touched"
+          ></ion-input>
+          <p class="rd-error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+            <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+            <span *ngIf="emailCtrl.errors?.['required']">El correo es obligatorio</span>
+            <span *ngIf="emailCtrl.errors?.['email']">Correo inválido</span>
+          </p>
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+          <label class="rd-label">Tipo de Cuenta</label>
+          <ion-select
+            formControlName="role"
+            class="rd-input rd-select"
+            fill="outline"
+            interface="action-sheet"
+            placeholder="Selecciona tu rol"
+          >
+            <ion-select-option value="RECEPTOR">Beneficiario / Familia</ion-select-option>
+            <ion-select-option value="DONANTE">Donante / Restaurante</ion-select-option>
+            <ion-select-option value="ONG">Supervisión / ONG</ion-select-option>
+          </ion-select>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="rd-label">Contraseña</label>
+          <ion-input
+            formControlName="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Mínimo 6 caracteres"
+            class="rd-input"
+            fill="outline"
+            [class.ion-invalid]="passCtrl.invalid && passCtrl.touched"
+            [class.ion-touched]="passCtrl.touched"
+          >
+            <ion-button
+              slot="end"
+              fill="clear"
+              size="small"
+              (click)="togglePassword()"
+              type="button"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-input>
+          <p class="rd-error" *ngIf="passCtrl.invalid && passCtrl.touched">
+            <ion-icon name="alert-circle-outline" style="font-size:12px"></ion-icon>
+            <span *ngIf="passCtrl.errors?.['required']">La contraseña es obligatoria</span>
+            <span *ngIf="passCtrl.errors?.['minlength']">Mínimo 6 caracteres</span>
+          </p>
+        </div>
+
+        <!-- Submit -->
+        <ion-button
+          type="submit"
+          expand="block"
+          class="rd-btn-primary submit-btn"
+          [disabled]="isLoading"
+        >
+          <ion-spinner name="crescent" *ngIf="isLoading" slot="start"></ion-spinner>
+          <span *ngIf="!isLoading">Completar Registro</span>
+          <span *ngIf="isLoading">Registrando...</span>
+          <ion-icon name="person-add-outline" slot="end" *ngIf="!isLoading"></ion-icon>
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Footer link -->
+    <div class="auth-footer">
+      <span>¿Ya tienes cuenta?</span>
+      <a routerLink="/login" class="auth-link">Accede aquí</a>
+    </div>
+  </div>
 </ion-content>

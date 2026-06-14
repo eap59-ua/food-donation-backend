@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
-import { DonationDetailPageRoutingModule } from './donation-detail-routing.module';
-import { DonationDetailPage } from './donation-detail.page';
+import { MyRequestsPageRoutingModule } from './my-requests-routing.module';
+import { MyRequestsPage } from './my-requests.page';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     IonicModule,
-    DonationDetailPageRoutingModule,
+    MyRequestsPageRoutingModule,
   ],
-  declarations: [DonationDetailPage],
+  declarations: [MyRequestsPage],
 })
-export class DonationDetailPageModule {}
+export class MyRequestsPageModule {}

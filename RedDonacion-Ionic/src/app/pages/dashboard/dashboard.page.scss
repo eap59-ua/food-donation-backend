@@ -1,0 +1,167 @@
+.dashboard-content {
+  --background: var(--rd-bg);
+}
+
+.dashboard-container {
+  padding: 16px 16px 32px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Toolbar
+.toolbar-title {
+  font-size: 16px;
+}
+.title-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--rd-foreground);
+
+  .brand-leaf {
+    color: var(--rd-primary);
+    font-size: 18px;
+  }
+}
+
+// Greeting
+.greeting-section {
+  padding: 12px 0 20px;
+}
+.greeting-small {
+  font-size: 14px;
+  color: var(--rd-muted-fg);
+  margin: 0 0 2px;
+}
+.greeting-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--rd-foreground);
+  margin: 0 0 8px;
+}
+.role-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+// Stats grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+
+  .skeleton-stat {
+    height: 90px;
+    border-radius: 14px;
+  }
+}
+
+// Stat icon overrides (ion-icon inside .rd-stat-card)
+.rd-stat-icon {
+  font-size: 26px;
+  margin-bottom: 2px;
+}
+.stat-icon-primary { color: var(--rd-primary); }
+.stat-icon-warning  { color: #d97706; }
+.stat-icon-success  { color: var(--rd-secondary); }
+
+// Greeting wave icon
+.greeting-wave {
+  font-size: 20px;
+  vertical-align: middle;
+  color: var(--rd-primary);
+}
+
+// Quick actions
+.quick-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.quick-action-btn {
+  flex: 1;
+  min-width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  background: var(--rd-card);
+  border: 1px solid var(--rd-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--rd-foreground);
+  white-space: nowrap;
+
+  &:active {
+    transform: scale(.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  }
+}
+
+.qa-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon { font-size: 22px; }
+
+  &.qa-icon-primary {
+    background: var(--rd-primary-light);
+    ion-icon { color: var(--rd-primary); }
+  }
+  &.qa-icon-secondary {
+    background: var(--rd-secondary-light);
+    ion-icon { color: var(--rd-secondary); }
+  }
+  &.qa-icon-tertiary {
+    background: #fef3c7;
+    ion-icon { color: #b45309; }
+  }
+}
+
+// Section header
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--rd-foreground);
+  margin: 0;
+}
+.see-all-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rd-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// Donation items
+.donation-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.skeleton-item { margin-bottom: 12px; }
