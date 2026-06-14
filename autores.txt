@@ -1,0 +1,14 @@
+Grupo: GCS-08
+Proyecto: Red de Donación de Alimentos
+Asignatura: Gestión de Calidad de Software (34041)
+Repositorio: https://github.com/eap59-ua/food-donation-backend (rama feature/frontend-Ionic)
+
+Integrantes:
+- Erardo Aldana Pessoa
+- Luis Almero Mut
+- Jastin Alexander Fernández Santin
+- Adrián García Hernández
+- Ángel Gonjar Verdejo
+- Héctor Hernández Sánchez
+- Iván Khomutov Vishnevsky
+- Esteban Pi Ribera
