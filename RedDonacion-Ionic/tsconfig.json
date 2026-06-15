@@ -18,6 +18,10 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "es2020",
+    "paths": {
+      "@ionic/angular": ["node_modules/@ionic/angular"],
+      "@ionic/angular/*": ["node_modules/@ionic/angular/*"]
+    },
     "lib": [
       "es2018",
       "dom"
