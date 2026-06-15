@@ -36,8 +36,13 @@ class DonationService:
         )
         self.db.add(donation)
         await self.db.commit()
-        await self.db.refresh(donation)
-        return DonationResponseDTO.model_validate(donation)
+
+        result = await self.db.execute(
+            select(DonationModel).options(selectinload(DonationModel.donor)).where(DonationModel.id == donation.id)
+        )
+        loaded_donation = result.scalar_one()
+
+        return DonationResponseDTO.model_validate(loaded_donation)
 
     async def list_available(
         self,

@@ -37,15 +37,15 @@ class UserModel(Base):
     is_active: Mapped[bool] = mapped_column(sa.Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(sa.DateTime, default=datetime.utcnow)
 
-    donations: Mapped[list["DonationModel"]] = relationship("DonationModel", back_populates="donor", foreign_keys="DonationModel.donor_id")
-    requests: Mapped[list["RequestModel"]] = relationship("RequestModel", back_populates="requester")
+    donations: Mapped[list["DonationModel"]] = relationship("DonationModel", back_populates="donor", foreign_keys="DonationModel.donor_id", cascade="all, delete-orphan")
+    requests: Mapped[list["RequestModel"]] = relationship("RequestModel", back_populates="requester", cascade="all, delete-orphan")
 
 
 class DonationModel(Base):
     __tablename__ = "donations"
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
-    donor_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("users.id"), nullable=False, index=True)
+    donor_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     title: Mapped[str] = mapped_column(sa.String(255), nullable=False)
     description: Mapped[str] = mapped_column(sa.Text, nullable=True)
     quantity: Mapped[str] = mapped_column(sa.String(100), nullable=False)
@@ -56,7 +56,7 @@ class DonationModel(Base):
     updated_at: Mapped[datetime] = mapped_column(sa.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     donor: Mapped["UserModel"] = relationship("UserModel", back_populates="donations", foreign_keys=[donor_id])
-    requests: Mapped[list["RequestModel"]] = relationship("RequestModel", back_populates="donation")
+    requests: Mapped[list["RequestModel"]] = relationship("RequestModel", back_populates="donation", cascade="all, delete-orphan")
 
     @property
     def donor_name(self) -> str:
@@ -67,8 +67,8 @@ class RequestModel(Base):
     __tablename__ = "requests"
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
-    donation_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("donations.id"), nullable=False, index=True)
-    requester_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("users.id"), nullable=False, index=True)
+    donation_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("donations.id", ondelete="CASCADE"), nullable=False, index=True)
+    requester_id: Mapped[uuid.UUID] = mapped_column(sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     message: Mapped[str] = mapped_column(sa.Text, nullable=True)
     requested_quantity: Mapped[str] = mapped_column(sa.String(100), nullable=True)
     status: Mapped[RequestStatusDB] = mapped_column(sa.Enum(RequestStatusDB), default=RequestStatusDB.PENDING)

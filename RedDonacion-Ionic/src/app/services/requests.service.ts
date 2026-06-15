@@ -50,4 +50,8 @@ export class RequestsService {
   updateStatus(id: string, status: RequestStatus): Observable<DonationRequestDTO> {
     return this.http.patch<DonationRequestDTO>(`${this.baseUrl}/${id}/status`, { status });
   }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

@@ -78,6 +78,7 @@ class CreateDonationDTO(BaseModel):
     quantity: str
     location_address: str
     expiration_date: Optional[datetime] = None
+    donor_id: Optional[UUID] = None
 
 
 class UpdateDonationDTO(BaseModel):

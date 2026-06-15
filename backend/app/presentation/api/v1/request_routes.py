@@ -67,3 +67,16 @@ async def update_request_status(
         raise HTTPException(status_code=404, detail=str(e))
     except PermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
+
+@router.delete("/{request_id}", status_code=204)
+async def delete_request(
+    request_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user),
+):
+    try:
+        await RequestService(db).delete(request_id, current_user.id, current_user.role == UserRoleDB.ADMIN)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))

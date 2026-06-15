@@ -5,6 +5,9 @@ import {
   DonationRequestDTO,
 } from '../../services/requests.service';
 
+import { AuthService } from '../../services/auth.service';
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-my-requests',
   templateUrl: './my-requests.page.html',
@@ -14,17 +17,22 @@ import {
 export class MyRequestsPage implements OnInit {
   requests: DonationRequestDTO[] = [];
   isLoading = true;
+  isAdmin = false;
 
   constructor(
     private requestsService: RequestsService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
+    this.isAdmin = this.authService.currentUser?.role === 'ADMIN';
     this.loadRequests();
   }
 
   ionViewWillEnter() {
+    this.isAdmin = this.authService.currentUser?.role === 'ADMIN';
     this.loadRequests();
   }
 
@@ -38,6 +46,21 @@ export class MyRequestsPage implements OnInit {
       error: () => {
         this.isLoading = false;
       },
+    });
+  }
+
+  updateRequestStatus(e: Event, reqId: string, status: 'APPROVED' | 'REJECTED') {
+    e.stopPropagation();
+    this.requestsService.updateStatus(reqId, status).subscribe({
+      next: () => this.loadRequests(),
+      error: async () => {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'No se pudo actualizar la solicitud.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
     });
   }
 

@@ -21,4 +21,8 @@ export class UsersService {
   update(id: string, data: Partial<{ name: string; email: string; role: string; is_active: boolean }>): Observable<UserResponseDTO> {
     return this.http.patch<UserResponseDTO>(`${this.baseUrl}/${id}`, data);
   }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

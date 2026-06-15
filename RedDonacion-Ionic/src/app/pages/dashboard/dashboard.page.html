@@ -95,17 +95,11 @@
         <h3 class="section-title">Panel de administrador</h3>
       </div>
       <div class="quick-actions">
-        <button class="quick-action-btn" (click)="goToList()">
+        <button class="quick-action-btn" [routerLink]="['/admin']">
           <div class="qa-icon qa-icon-primary">
-            <ion-icon name="eye-outline"></ion-icon>
+            <ion-icon name="settings-outline"></ion-icon>
           </div>
-          <span>Revisar donaciones</span>
-        </button>
-        <button class="quick-action-btn" [routerLink]="['/my-requests']">
-          <div class="qa-icon qa-icon-secondary">
-            <ion-icon name="clipboard-outline"></ion-icon>
-          </div>
-          <span>Revisar solicitudes</span>
+          <span>Ir a panel completo</span>
         </button>
       </div>
     </div>

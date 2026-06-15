@@ -1,101 +1,460 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/dashboard">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Panel de administrador</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="admin-content">
-  <div class="admin-section">
-    <div class="section-header">
-      <h2>Usuarios</h2>
-      <ion-button color="primary" (click)="createUser()">Crear usuario</ion-button>
+<ion-content class="admin-content detail-content" [fullscreen]="true">
+  <div class="detail-container">
+
+    <!-- Usuarios Section -->
+    <div class="rd-card info-card">
+      <div class="section-header-detail" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 class="section-title-detail" style="margin: 0;">Usuarios</h3>
+        <ion-button color="primary" class="rd-btn-primary" (click)="openUserModal()">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Crear usuario
+        </ion-button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of users">
+              <td>{{ u.name }}</td>
+              <td>{{ u.email }}</td>
+              <td><span class="rd-badge {{ u.role.toLowerCase() }}">{{ u.role }}</span></td>
+              <td>{{ u.is_active ? 'Sí' : 'No' }}</td>
+              <td>
+                <ion-button size="small" fill="clear" color="primary" (click)="viewUser(u)">
+                  <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" color="secondary" (click)="openUserModal(u)">
+                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" color="danger" (click)="deleteUser(u)">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Activo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let u of users">
-            <td>{{ u.name }}</td>
-            <td>{{ u.email }}</td>
-            <td>{{ u.role }}</td>
-            <td>{{ u.is_active ? 'Sí' : 'No' }}</td>
-            <td>
-              <ion-button size="small" fill="clear" (click)="viewUser(u)">Ver</ion-button>
-              <ion-button size="small" fill="clear" (click)="editUser(u)">Editar</ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <!-- Donaciones Section -->
+    <div class="rd-card info-card">
+      <div class="section-header-detail" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 class="section-title-detail" style="margin: 0;">Donaciones</h3>
+        <ion-button color="primary" class="rd-btn-primary" (click)="openDonationModal()">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Crear donación
+        </ion-button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Donante</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of donations">
+              <td>{{ d.title }}</td>
+              <td>{{ d.donor_name }}</td>
+              <td>{{ d.quantity }}</td>
+              <td><span class="rd-badge {{ d.status.toLowerCase() }}">{{ getDonationStatusLabel(d.status) }}</span></td>
+              <td>
+                <ion-button size="small" fill="clear" color="primary" (click)="viewDonation(d)">
+                  <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" color="danger" (click)="deleteDonation(d)">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <!-- Solicitudes Section -->
+    <div class="rd-card info-card">
+      <div class="section-header-detail" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 class="section-title-detail" style="margin: 0;">Solicitudes</h3>
+        <ion-button color="primary" class="rd-btn-primary" (click)="openRequestModal()">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Crear solicitud
+        </ion-button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Donación</th>
+              <th>Solicitante</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of requests">
+              <td>{{ r.donation_title }}</td>
+              <td>{{ r.requester_name }}</td>
+              <td>{{ r.requested_quantity }}</td>
+              <td><span class="rd-badge {{ r.status.toLowerCase() }}">{{ getRequestStatusLabel(r.status) }}</span></td>
+              <td>
+                <ion-button size="small" fill="clear" color="primary" (click)="viewRequest(r)">
+                  <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" color="secondary" (click)="openRequestModal(r)">
+                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="r.status === 'PENDING'" size="small" fill="clear" color="success" (click)="approveRequest(r)">
+                  <ion-icon name="checkmark-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="r.status === 'PENDING'" size="small" fill="clear" color="warning" (click)="rejectRequest(r)">
+                  <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" color="danger" (click)="deleteRequest(r)">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
-  <div class="admin-section">
-    <div class="section-header">
-      <h2>Donaciones</h2>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Donante</th>
-            <th>Cantidad</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let d of donations">
-            <td>{{ d.title }}</td>
-            <td>{{ d.donor_name }}</td>
-            <td>{{ d.quantity }}</td>
-            <td>{{ d.status }}</td>
-            <td>
-              <ion-button size="small" fill="clear" (click)="viewDonation(d)">Ver</ion-button>
-              <ion-button size="small" fill="clear" color="danger" (click)="deleteDonation(d)">Borrar</ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <!-- User Form Modal -->
+  <ion-modal [isOpen]="isUserModalOpen" (didDismiss)="closeUserModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ editingUser ? 'Editar Usuario' : 'Crear Usuario' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeUserModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+          <div class="form-group">
+            <label class="rd-label">Nombre / Organización</label>
+            <ion-input
+              formControlName="name"
+              type="text"
+              placeholder="Nombre"
+              class="rd-input"
+              fill="outline"
+            ></ion-input>
+          </div>
+          
+          <div class="form-group">
+            <label class="rd-label">Correo electrónico</label>
+            <ion-input
+              formControlName="email"
+              type="email"
+              placeholder="Email"
+              class="rd-input"
+              fill="outline"
+              [readonly]="!!editingUser"
+            ></ion-input>
+          </div>
 
-  <div class="admin-section">
-    <div class="section-header">
-      <h2>Solicitudes</h2>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Donación</th>
-            <th>Solicitante</th>
-            <th>Cantidad</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let r of requests">
-            <td>{{ r.donation_title }}</td>
-            <td>{{ r.requester_name }}</td>
-            <td>{{ r.requested_quantity }}</td>
-            <td>{{ r.status }}</td>
-            <td>
-              <ion-button size="small" fill="clear" (click)="viewRequest(r)">Ver</ion-button>
-              <ion-button size="small" fill="clear" (click)="updateRequestStatus(r)">Editar</ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+          <div class="form-group">
+            <label class="rd-label">Tipo de Cuenta</label>
+            <ion-select
+              formControlName="role"
+              class="rd-input rd-select"
+              fill="outline"
+              interface="action-sheet"
+              placeholder="Selecciona rol"
+            >
+              <ion-select-option value="RECEPTOR">Beneficiario / Familia</ion-select-option>
+              <ion-select-option value="DONANTE">Donante / Restaurante</ion-select-option>
+              <ion-select-option value="ONG">Supervisión / ONG</ion-select-option>
+              <ion-select-option value="ADMIN">Administrador</ion-select-option>
+            </ion-select>
+          </div>
+
+          <div class="form-group" *ngIf="!editingUser">
+            <label class="rd-label">Contraseña</label>
+            <ion-input
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Contraseña"
+              class="rd-input"
+              fill="outline"
+            >
+              <ion-button slot="end" fill="clear" size="small" (click)="togglePassword()" type="button">
+                <ion-icon slot="icon-only" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+              </ion-button>
+            </ion-input>
+          </div>
+
+          <ion-button type="submit" expand="block" class="rd-btn-primary" style="margin-top: 24px;" [disabled]="userForm.invalid">
+            {{ editingUser ? 'Guardar Cambios' : 'Crear Usuario' }}
+          </ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Request Form Modal -->
+  <ion-modal [isOpen]="isRequestModalOpen" (didDismiss)="closeRequestModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ editingRequest ? 'Editar Solicitud' : 'Crear Solicitud' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeRequestModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="requestForm" (ngSubmit)="saveRequest()">
+          <div class="form-group">
+            <label class="rd-label">Donación</label>
+            <ion-select
+              *ngIf="!editingRequest"
+              formControlName="donation_id"
+              class="rd-input rd-select"
+              fill="outline"
+              interface="action-sheet"
+              placeholder="Selecciona la donación"
+            >
+              <ion-select-option *ngFor="let d of availableDonations" [value]="d.id">
+                {{ d.title }} (de {{ d.donor_name }})
+              </ion-select-option>
+            </ion-select>
+            <ion-input
+              *ngIf="editingRequest"
+              formControlName="donation_id"
+              type="text"
+              class="rd-input"
+              fill="outline"
+              [readonly]="true"
+            ></ion-input>
+          </div>
+
+          <div class="form-group">
+            <label class="rd-label">Mensaje</label>
+            <ion-textarea
+              formControlName="message"
+              placeholder="Mensaje para el donante"
+              class="rd-input"
+              fill="outline"
+              [readonly]="!!editingRequest"
+            ></ion-textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="rd-label">Cantidad solicitada</label>
+            <ion-input
+              formControlName="requested_quantity"
+              type="text"
+              placeholder="Ej: 2 raciones"
+              class="rd-input"
+              fill="outline"
+              [readonly]="!!editingRequest"
+            ></ion-input>
+          </div>
+
+          <div class="form-group" *ngIf="editingRequest">
+            <label class="rd-label">Estado</label>
+            <ion-select
+              formControlName="status"
+              class="rd-input rd-select"
+              fill="outline"
+              interface="action-sheet"
+              placeholder="Selecciona estado"
+            >
+              <ion-select-option value="PENDING">Pendiente</ion-select-option>
+              <ion-select-option value="APPROVED">Aprobada</ion-select-option>
+              <ion-select-option value="REJECTED">Rechazada</ion-select-option>
+            </ion-select>
+          </div>
+
+          <ion-button type="submit" expand="block" class="rd-btn-primary" style="margin-top: 24px;" [disabled]="requestForm.invalid">
+            {{ editingRequest ? 'Actualizar Estado' : 'Crear Solicitud' }}
+          </ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Donation Form Modal -->
+  <ion-modal [isOpen]="isDonationModalOpen" (didDismiss)="closeDonationModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Crear Donación</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeDonationModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="donationForm" (ngSubmit)="saveDonation()">
+          <!-- Title -->
+          <div class="form-group">
+            <label class="rd-label">Título de la donación *</label>
+            <ion-input
+              formControlName="title"
+              type="text"
+              placeholder="Ej: Sándwiches sobrantes del día"
+              class="rd-input"
+              fill="outline"
+            ></ion-input>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="rd-label">Descripción *</label>
+            <ion-textarea
+              formControlName="description"
+              placeholder="Describe el estado y tipo de los alimentos..."
+              class="rd-input"
+              fill="outline"
+              [autoGrow]="true"
+              [rows]="3"
+            ></ion-textarea>
+          </div>
+
+          <!-- Quantity -->
+          <div class="form-group quantity-field">
+            <label class="rd-label">Cantidad *</label>
+            <ion-input
+              formControlName="quantity"
+              type="text"
+              placeholder="Ej: 5 kg"
+              class="rd-input"
+              fill="outline"
+            ></ion-input>
+          </div>
+
+          <!-- Location -->
+          <div class="form-group">
+            <label class="rd-label">Ubicación (Dirección) *</label>
+            <ion-input
+              formControlName="location_address"
+              type="text"
+              placeholder="Ej: Calle Principal 123"
+              class="rd-input"
+              fill="outline"
+            ></ion-input>
+          </div>
+
+          <!-- Expiry date -->
+          <div class="form-group">
+            <label class="rd-label">Fecha de caducidad</label>
+            <ion-input
+              formControlName="expiration_date"
+              type="date"
+              class="rd-input"
+              fill="outline"
+            ></ion-input>
+          </div>
+
+          <!-- Donor Select -->
+          <div class="form-group">
+            <label class="rd-label">Donante *</label>
+            <ion-select
+              formControlName="donor_id"
+              class="rd-input rd-select"
+              fill="outline"
+              interface="action-sheet"
+              placeholder="Selecciona el donante"
+            >
+              <ion-select-option *ngFor="let u of availableDonors" [value]="u.id">
+                {{ u.name }} ({{ u.email }})
+              </ion-select-option>
+            </ion-select>
+          </div>
+
+          <!-- Submit -->
+          <ion-button
+            type="submit"
+            expand="block"
+            class="rd-btn-primary"
+            style="margin-top: 24px;"
+            [disabled]="donationForm.invalid || loading"
+          >
+            Publicar Donación
+          </ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- View User Modal -->
+  <ion-modal [isOpen]="isViewUserModalOpen" (didDismiss)="closeViewUserModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Detalles del Usuario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeViewUserModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" *ngIf="viewingUser">
+        <div class="rd-card info-card">
+          <p><strong>ID:</strong> {{ viewingUser.id }}</p>
+          <p><strong>Nombre:</strong> {{ viewingUser.name }}</p>
+          <p><strong>Email:</strong> {{ viewingUser.email }}</p>
+          <p><strong>Rol:</strong> <span class="rd-badge {{ viewingUser.role.toLowerCase() }}">{{ viewingUser.role }}</span></p>
+          <p><strong>Activo:</strong> {{ viewingUser.is_active ? 'Sí' : 'No' }}</p>
+          <p><strong>Registrado:</strong> {{ viewingUser.created_at | date:'short' }}</p>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- View Request Modal -->
+  <ion-modal [isOpen]="isViewRequestModalOpen" (didDismiss)="closeViewRequestModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Detalles de la Solicitud</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeViewRequestModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" *ngIf="viewingRequest">
+        <div class="rd-card info-card">
+          <p><strong>ID Solicitud:</strong> {{ viewingRequest.id }}</p>
+          <p><strong>Donación:</strong> {{ viewingRequest.donation_title }} (ID: {{ viewingRequest.donation_id }})</p>
+          <p><strong>Solicitante:</strong> {{ viewingRequest.requester_name }} (ID: {{ viewingRequest.requester_id }})</p>
+          <p><strong>Mensaje:</strong> {{ viewingRequest.message || 'Sin mensaje' }}</p>
+          <p><strong>Cantidad solicitada:</strong> {{ viewingRequest.requested_quantity || 'No especificada' }}</p>
+          <p><strong>Estado:</strong> <span class="rd-badge {{ viewingRequest.status.toLowerCase() }}">{{ viewingRequest.status }}</span></p>
+          <p><strong>Creada:</strong> {{ viewingRequest.created_at | date:'short' }}</p>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

@@ -77,6 +77,27 @@
           <span>Aprobada</span>
         </div>
       </div>
+      
+      <div class="request-actions" *ngIf="isAdmin && req.status === 'PENDING'" style="margin-top: 16px;">
+        <ion-button
+          size="small"
+          color="success"
+          fill="outline"
+          (click)="updateRequestStatus($event, req.id, 'APPROVED')"
+        >
+          <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+          Aceptar
+        </ion-button>
+        <ion-button
+          size="small"
+          color="danger"
+          fill="outline"
+          (click)="updateRequestStatus($event, req.id, 'REJECTED')"
+        >
+          <ion-icon name="close-outline" slot="start"></ion-icon>
+          Rechazar
+        </ion-button>
+      </div>
     </div>
 
   </div>

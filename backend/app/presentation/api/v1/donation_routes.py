@@ -48,7 +48,14 @@ async def create_donation(
 ):
     if current_user.role not in (UserRoleDB.DONANTE, UserRoleDB.ADMIN):
         raise HTTPException(status_code=403, detail="Only donors can create donations")
-    return await DonationService(db).create(current_user.id, dto)
+
+    donor_id = current_user.id
+    if dto.donor_id:
+        if current_user.role != UserRoleDB.ADMIN:
+            raise HTTPException(status_code=403, detail="Only admins can specify a different donor")
+        donor_id = dto.donor_id
+
+    return await DonationService(db).create(donor_id, dto)
 
 
 @router.put("/{donation_id}", response_model=DonationResponseDTO)

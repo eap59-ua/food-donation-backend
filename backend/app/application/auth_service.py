@@ -104,3 +104,11 @@ class AuthService:
         await self.db.commit()
         await self.db.refresh(user)
         return UserResponseDTO.model_validate(user)
+
+    async def delete_user(self, user_id: uuid.UUID) -> None:
+        result = await self.db.execute(select(UserModel).where(UserModel.id == user_id))
+        user = result.scalar_one_or_none()
+        if not user:
+            raise ValueError("User not found")
+        await self.db.delete(user)
+        await self.db.commit()

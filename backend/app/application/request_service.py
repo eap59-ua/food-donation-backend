@@ -118,3 +118,15 @@ class RequestService:
         await self.db.commit()
         await self.db.refresh(request)
         return RequestResponseDTO.model_validate(request)
+
+    async def delete(self, request_id: uuid.UUID, current_user_id: uuid.UUID, is_admin: bool) -> None:
+        r_result = await self.db.execute(select(RequestModel).where(RequestModel.id == request_id))
+        request = r_result.scalar_one_or_none()
+        if not request:
+            raise ValueError("Request not found")
+
+        if not is_admin and request.requester_id != current_user_id:
+            raise PermissionError("Only the requester or an admin can delete a request")
+
+        await self.db.delete(request)
+        await self.db.commit()

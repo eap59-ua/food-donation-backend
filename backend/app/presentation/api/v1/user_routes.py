@@ -47,3 +47,13 @@ async def get_user(user_id: UUID, db: AsyncSession = Depends(get_db), current_us
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+
+@router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_user(user_id: UUID, db: AsyncSession = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
+    if current_user.role != UserRoleDB.ADMIN:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admins can delete users")
+    try:
+        await AuthService(db).delete_user(user_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

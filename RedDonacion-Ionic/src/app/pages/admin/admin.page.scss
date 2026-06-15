@@ -1,8 +1,37 @@
 .admin-content {
-  padding: 16px;
+  // Styles for the admin content
 }
-.admin-section { margin-bottom: 28px; }
-.section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
-.table-wrap table { width:100%; border-collapse:collapse }
-.table-wrap th, .table-wrap td { padding:8px 12px; border-bottom:1px solid var(--ion-color-light); text-align:left }
-.table-wrap tr:hover { background: rgba(0,0,0,0.03) }
+
+.table-wrap {
+  overflow-x: auto; // responsive table
+  
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 10px;
+    min-width: 600px; // Ensure table doesn't squish too much on small screens
+  }
+  
+  th {
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--ion-color-light-shade, #e0e0e0);
+    text-align: left;
+    font-weight: 600;
+    color: var(--ion-color-medium);
+  }
+  
+  td { 
+    padding: 12px 16px; 
+    border-bottom: 1px solid var(--ion-color-light); 
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  tr:hover { 
+    background: rgba(var(--ion-color-primary-rgb), 0.03);
+  }
+}
+
+ion-modal {
+  --border-radius: 16px;
+}

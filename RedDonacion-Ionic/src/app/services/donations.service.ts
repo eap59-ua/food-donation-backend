@@ -25,6 +25,7 @@ export interface CreateDonationDTO {
   quantity: string;
   location_address: string;
   expiration_date: string | null;
+  donor_id?: string;
 }
 
 @Injectable({
