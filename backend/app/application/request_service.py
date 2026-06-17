@@ -93,7 +93,9 @@ class RequestService:
         self, request_id: uuid.UUID, donor_id: uuid.UUID, is_admin: bool, dto: UpdateRequestStatusDTO
     ) -> RequestResponseDTO:
         r_result = await self.db.execute(
-            select(RequestModel).where(RequestModel.id == request_id)
+            select(RequestModel)
+            .options(selectinload(RequestModel.requester)) 
+            .where(RequestModel.id == request_id)
         )
         request = r_result.scalar_one_or_none()
         if not request:
